@@ -280,7 +280,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.5 (Row Locking)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.6 (Multi-Tab)</p></div>
                     </div>
 
                     {viewState === 'pin_prompt' && (
@@ -330,7 +330,7 @@
             );
         }
 
-        // --- TEACHER DASHBOARD (ROW LOCKING IMPLEMENTED) ---
+        // --- TEACHER DASHBOARD (ROW LOCKING + STRICT TAB SEPARATION) ---
         function TeacherDashboard({ setRole, scriptUrl }) {
             const [data, setData] = useState([]);
             const [loading, setLoading] = useState(true);
@@ -339,7 +339,7 @@
             const [koreksiInput, setKoreksiInput] = useState('');
             const [saving, setSaving] = useState(false);
             const [errorMsg, setErrorMsg] = useState('');
-            const [activeTab, setActiveTab] = useState('poin'); 
+            const [activeTab, setActiveTab] = useState('jurnal'); // 'jurnal' | 'hafalan' | 'galeri'
 
             useEffect(() => { fetchData(); }, []);
 
@@ -362,10 +362,9 @@
                 if (!selectedStudent) return;
                 setSaving(true);
                 
-                // CRITICAL FIX: Mengirim rowIndex agar tidak salah sasaran
                 const payload = JSON.stringify({ 
                     action: 'nilai', 
-                    rowIndex: selectedStudent.rowIndex, // Ini kunci agar nilai tidak tertukar
+                    rowIndex: selectedStudent.rowIndex, 
                     nama: selectedStudent.nama, 
                     hari: selectedStudent.hari, 
                     nilaiGuru: nilaiInput, 
@@ -388,8 +387,6 @@
 
             const openModal = (student) => { 
                 setSelectedStudent(student); 
-                // Prioritaskan nilaiGuru dari server, jika kosong, baru tampilkan poin murid
-                // Agar 140 tidak tertimpa 90 saat guru membuka form edit lagi
                 setNilaiInput(student.nilaiGuru || ''); 
                 setKoreksiInput(student.koreksiGuru || ''); 
             };
@@ -406,12 +403,16 @@
                 if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => { alert("✅ Link Ajaib berhasil disalin!\n\nSilakan 'Paste' di Grup WhatsApp Kelas.\nSaat murid mengkliknya, mereka akan OTOMATIS terhubung."); }).catch(err => { prompt("Salin link ini secara manual:", magicLink); }); } else { prompt("Salin link ini untuk dibagikan ke siswa:", magicLink); }
             };
 
+            // LOGIKA PEMISAH DATA (FILTER KETAT)
             const getFilteredData = () => {
-                if (activeTab === 'audio') return data.filter(item => item.audio && item.audio.length > 50);
-                if (activeTab === 'foto') return data.filter(item => item.foto && item.foto.length > 50);
-                // Poin tab: tampilkan semua yang BUKAN setoran khusus (agar tidak duplikat), atau tampilkan semua
-                // Idealnya: Tampilkan semua tapi beri tanda
-                return data; 
+                // Hafalan: Harus punya Audio
+                if (activeTab === 'hafalan') return data.filter(item => item.audio && item.audio.length > 50);
+                
+                // Galeri: Harus punya Foto
+                if (activeTab === 'galeri') return data.filter(item => item.foto && item.foto.length > 50);
+                
+                // Jurnal: SISANYA (yang bukan Audio dan bukan Foto)
+                return data.filter(item => (!item.audio || item.audio.length <= 50) && (!item.foto || item.foto.length <= 50)); 
             };
 
             return (
@@ -421,9 +422,16 @@
                             <h1 className="font-bold text-lg text-slate-700 flex items-center gap-2"><Icons.Award className="text-emerald-600"/> Dashboard Guru</h1>
                             <button onClick={fetchData} className="p-2 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 hover:bg-emerald-100"><Icons.Loader2 size={18} className={loading ? "animate-spin" : ""} /></button>
                         </div>
+                        
+                        {/* TAB NAVIGATION */}
                         <div className="flex bg-slate-100 p-1 rounded-xl">
-                            {['poin', 'audio', 'foto'].map(tab => (
-                                <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize flex items-center justify-center gap-1 transition-all ${activeTab === tab ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>{tab === 'poin' && <Icons.List size={14}/>}{tab === 'audio' && <Icons.Mic size={14}/>}{tab === 'foto' && <Icons.Image size={14}/>}{tab === 'poin' ? 'Semua Data' : tab === 'audio' ? 'Hafalan' : 'Galeri'}</button>
+                            {['jurnal', 'hafalan', 'galeri'].map(tab => (
+                                <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize flex items-center justify-center gap-1 transition-all ${activeTab === tab ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>
+                                    {tab === 'jurnal' && <Icons.List size={14}/>}
+                                    {tab === 'hafalan' && <Icons.Mic size={14}/>}
+                                    {tab === 'galeri' && <Icons.Image size={14}/>}
+                                    {tab === 'jurnal' ? 'Jurnal' : tab === 'hafalan' ? 'Hafalan' : 'Galeri'}
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -443,25 +451,37 @@
                         <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                             <div className="flex justify-between items-start mb-2">
                                 <div><h3 className="font-bold text-slate-800 flex items-center gap-2">{item.nama} <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-500">#{item.rowIndex}</span></h3><p className="text-xs text-slate-500">Hari ke-{item.hari} • {item.kelas}</p></div>
-                                <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin (Siswa)</span>
+                                {activeTab === 'jurnal' && <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin (Auto)</span>}
                             </div>
                             
-                            {/* KONTEN DINAMIS BERDASARKAN ISI BARIS */}
-                            {item.audio && item.audio.length > 20 && (
-                                <div className="mb-2 bg-blue-50 p-2 rounded-lg border border-blue-100 flex items-center justify-between">
-                                    <div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Audio</span></div>
-                                    <audio controls src={item.audio} className="h-6 w-32" />
+                            {/* TAB CONTENT: JURNAL */}
+                            {activeTab === 'jurnal' && (
+                                <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian || 'Tidak ada rincian.'}</div>
+                            )}
+
+                            {/* TAB CONTENT: HAFALAN */}
+                            {activeTab === 'hafalan' && (
+                                <div className="mb-3">
+                                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2">
+                                        <div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Hafalan</span></div>
+                                        <audio controls src={item.audio} className="h-8 w-40" />
+                                    </div>
+                                    <div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div>
                                 </div>
                             )}
-                            {item.foto && item.foto.length > 20 && (
-                                <div className="mb-2"><img src={item.foto} alt="Bukti" className="w-full h-32 rounded-lg border border-slate-200 object-cover" /></div>
+
+                            {/* TAB CONTENT: GALERI */}
+                            {activeTab === 'galeri' && (
+                                <div className="mb-3">
+                                    <img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" />
+                                    <div className="text-[10px] text-slate-500 italic">{item.rincian}</div>
+                                </div>
                             )}
-                            <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian || 'Tidak ada rincian.'}</div>
 
                             <div className="border-t pt-2 mt-2 flex justify-between items-center">
                                 <div className="text-xs">
                                     {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : <span className="text-red-400 italic">Belum dinilai</span>}
-                                    {item.koreksiGuru && <span className="text-slate-400 ml-1 italic text-[10px]">"{item.koreksiGuru}"</span>}
+                                    {item.koreksiGuru && <span className="text-slate-400 ml-2 italic text-[10px] truncate max-w-[100px] inline-block align-bottom">"{item.koreksiGuru}"</span>}
                                 </div>
                                 <button onClick={() => openModal(item)} className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow hover:bg-emerald-700"><Icons.PenTool size={12}/> Nilai</button>
                             </div>
