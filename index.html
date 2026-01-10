@@ -104,6 +104,7 @@
         };
 
         // --- DZIKIR PAGI & PETANG (HISNUL MUSLIM) ---
+        // Placeholder sementara menunggu Anda paste text lengkap
         const DAFTAR_DZIKIR = [
             { 
                 judul: "1. Ayat Kursi (Pagi & Petang)", 
@@ -202,13 +203,11 @@
             const [magicLinkStatus, setMagicLinkStatus] = useState(null); 
 
             useEffect(() => {
-                // 1. Cek Magic Link di URL
                 const params = new URLSearchParams(window.location.search);
                 const guruScript = params.get('guru');
-                const sekolahParam = params.get('school'); // PARAMETER BARU
+                const sekolahParam = params.get('school'); 
 
                 if (guruScript) {
-                    // MAGIC LINK DETECTED! Apply settings automatically
                     setScriptUrl(guruScript);
                     localStorage.setItem('ramadanScriptUrl', guruScript);
                     
@@ -216,7 +215,6 @@
                         const decodedSchool = decodeURIComponent(sekolahParam);
                         setSchoolName(decodedSchool);
                         
-                        // Update profile storage
                         const savedProfile = localStorage.getItem('ramadanProfile') || '{}';
                         const parsed = JSON.parse(savedProfile);
                         parsed.schoolName = decodedSchool;
@@ -230,7 +228,6 @@
                     setMagicLinkStatus('success');
                     setTimeout(() => setMagicLinkStatus(null), 6000); 
                 } else {
-                    // Normal load
                     const globalUrl = localStorage.getItem('ramadanScriptUrl');
                     if(globalUrl) setScriptUrl(globalUrl);
 
@@ -395,7 +392,7 @@
             );
         }
 
-        // --- TEACHER DASHBOARD (WITH MAGIC LINK V2 + NO JOURNAL GRADING) ---
+        // --- TEACHER DASHBOARD ---
         function TeacherDashboard({ setRole, scriptUrl, schoolName }) {
             const [data, setData] = useState([]);
             const [loading, setLoading] = useState(true);
@@ -439,14 +436,12 @@
 
             const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
 
-            // MAGIC LINK V2: INCLUDES SCHOOL NAME
             const copyStudentLink = () => {
                 if (!scriptUrl) { alert("Link Script kosong!"); return; }
                 const isLocal = window.location.protocol === 'file:';
                 if (isLocal) { prompt("Anda offline. Salin Link Script ini manual:", scriptUrl); return; }
                 
                 const baseUrl = window.location.href.split('?')[0];
-                // Encode both URL and School Name
                 const magicLink = `${baseUrl}?guru=${encodeURIComponent(scriptUrl)}&school=${encodeURIComponent(schoolName)}`;
                 
                 if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => alert("✨ Link Ajaib Tersalin!\n\nLink ini sudah berisi: \n1. Koneksi Database\n2. Nama Sekolah ("+schoolName+")\n\nMurid tinggal klik & pakai!")).catch(() => prompt("Salin manual:", magicLink)); } else { prompt("Salin link:", magicLink); }
@@ -488,10 +483,9 @@
                             {activeTab === 'hafalan' && <div className="mb-3"><div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2"><div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Audio</span></div><audio controls src={item.audio} className="h-8 w-32" /></div><div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div></div>}
                             {activeTab === 'galeri' && <div className="mb-3"><img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" /><div className="text-[10px] text-slate-500 italic">{item.rincian}</div></div>}
                             
-                            {/* HANYA TAMPILKAN TOMBOL NILAI UTK HAFALAN & FOTO */}
                             <div className="border-t pt-2 mt-2 flex justify-between items-center">
                                 <div className="text-xs">
-                                    {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : <span className="text-red-400 italic">Belum dinilai</span>}
+                                    {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : (activeTab === 'jurnal' ? '' : <span className="text-red-400 italic">Belum dinilai</span>)}
                                     {item.koreksiGuru && <span className="text-slate-400 ml-2 italic text-[10px]">"{item.koreksiGuru}"</span>}
                                 </div>
                                 {activeTab !== 'jurnal' ? 
@@ -551,13 +545,14 @@
             useEffect(() => { if (Object.keys(userData).length > 0) localStorage.setItem('ramadanJournalData', JSON.stringify(userData)); }, [userData]);
             useEffect(() => { localStorage.setItem('ramadanProfile', JSON.stringify(studentProfile)); }, [studentProfile]);
 
-            // FIX: Ensure prev[day] exists before spreading to allow text input updates
+            // FIX: UPDATED FIELD LOGIC (NAME OF PREACHER ETC)
             const updateField = (day, field, value) => { 
                 setUserData(prev => {
                     const dayData = prev[day] || {};
                     return { ...prev, [day]: { ...dayData, [field]: value } };
                 });
             };
+            
             const toggleCheck = (day, field) => { 
                 if (userData[day]?.validated) return; 
                 setUserData(prev => {
@@ -586,22 +581,18 @@
                 if (dayData.subuh) score += 10; if (dayData.zuhur) score += 10; if (dayData.ashar) score += 10; if (dayData.maghrib) score += 10; if (dayData.isya) score += 10; 
                 if (dayData.tarawih) score += 10; if (dayData.witir) score += 10; if (dayData.tadarus) score += 10; if (dayData.salatMalam) { score += (dayIndex >= 21) ? 20 : 10; } if (dayData.bantuIbu) score += 5; if (dayData.kosakata) score += 5; if (dayData.amalanLainCheck) score += 5; if (dayData.hafalDoa) score += 10; if (dayData.namaPenceramah) score += 5; if (dayData.temaCeramah) score += 10; return score; 
             };
+            
+            // Total Poin Jurnal (Lokal)
             const calculateTotalLocalScore = () => { let score = 0; Object.entries(userData).forEach(([d, data]) => score += calculateDailyScore(data, parseInt(d))); return score; };
             
-            // TOTAL POIN GABUNGAN: (Nilai Auto dari Jurnal) + (Nilai Guru dari Hafalan/Foto)
+            // TOTAL POIN CERDAS: (Poin Jurnal Murid) + (Poin Hafalan/Foto dari Guru)
             const getDisplayScore = () => {
                 const localScore = calculateTotalLocalScore();
-                // Tambahkan nilai dari server (khusus untuk Hafalan & Foto yang dinilai guru)
-                // Kita anggap nilai dari server adalah tambahan untuk Hafalan/Foto, karena poin Jurnal dihitung lokal
-                // Namun, untuk menghindari duplikasi jika Guru menilai Jurnal (seharusnya tidak), kita hanya ambil total.
-                
-                // LOGIKA SIMPLE: Total Poin = (Poin Jurnal Murid) + (Poin Hafalan/Foto Guru)
-                // Kita perlu filter raportData yang merupakan audio/foto
+                // Ambil nilai guru khusus untuk baris yang ada Audio atau Foto
                 const teacherScore = raportData.reduce((acc, curr) => {
                     const isMedia = (curr.audio && curr.audio.length > 50) || (curr.foto && curr.foto.length > 50);
                     return isMedia ? acc + (parseInt(curr.nilaiGuru) || 0) : acc;
                 }, 0);
-
                 return localScore + teacherScore; 
             };
 
@@ -615,10 +606,6 @@
                     const json = await res.json(); 
                     const myData = json.filter(row => row.nama.toLowerCase() === studentProfile.name.toLowerCase()); 
                     setRaportData(myData); 
-                    
-                    // Hitung Total Nilai Guru
-                    const total = myData.reduce((acc, curr) => acc + (parseInt(curr.nilaiGuru) || 0), 0);
-                    setTotalGuruScore(total);
                 } catch(e) {} finally { setLoadingRaport(false); } 
             };
             
@@ -640,12 +627,11 @@
             
             return (
                 <div className="min-h-screen bg-emerald-50 pb-24 font-sans">
-                    <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{schoolName}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Total Poin:</span><span className="text-xl font-black text-yellow-300">{getDisplayScore()}</span></div></div>
+                    <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{studentProfile.class || 'Kelas -'}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Total Poin:</span><span className="text-xl font-black text-yellow-300">{getDisplayScore()}</span></div></div>
                     <div className="px-4 -mt-4 relative z-10">
                         <div className="bg-white p-1 rounded-xl shadow-md flex mb-4 text-[10px] font-bold text-center border border-slate-100 overflow-x-auto">{['journal', 'doa', 'hafalan', 'raport', 'achievements'].map(m => (<button key={m} onClick={() => setView(m)} className={`flex-1 py-2 px-1 capitalize rounded-lg transition-colors border ${view===m ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-slate-400 border-transparent hover:bg-slate-50'}`}>{m === 'achievements' ? 'Lapor' : m === 'journal' ? 'Jurnal' : m === 'doa' ? 'Dzikir' : m}</button>))}</div>
                         {view === 'journal' && (<div className="space-y-4 animate-in fade-in">
-                            <div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>
-                            <div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div>
+                            <div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>{userData[activeDay]?.validated && <div className="bg-green-100 text-green-700 p-2 rounded-lg text-xs font-bold text-center border border-green-200">✅ Data sudah divalidasi</div>}<div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div>
                             <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-4"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Sun size={12}/> Puasa Hari Ini</h3><div className="flex gap-2"><button onClick={() => togglePuasa('penuh')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaPenuh ? 'bg-orange-50 border-orange-500' : 'bg-white border-slate-100'}`}><Icons.Sun size={20} className={userData[activeDay]?.puasaPenuh ? "text-orange-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Penuh (20)</span></button><button onClick={() => togglePuasa('setengah')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaSetengah ? 'bg-blue-50 border-blue-500' : 'bg-white border-slate-100'}`}><Icons.CloudSun size={20} className={userData[activeDay]?.puasaSetengah ? "text-blue-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Setengah (10)</span></button></div></div>
                             <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Shalat Wajib (+10)</h3><div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">{['Subuh','Zuhur','Ashar','Maghrib','Isya'].map(s => (<button key={s} onClick={() => toggleCheck(activeDay, s.toLowerCase())} className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold border transition ${userData[activeDay]?.[s.toLowerCase()] ? 'bg-blue-500 text-white border-blue-500 shadow-md' : 'bg-slate-50 text-slate-400 border-slate-200 hover:border-blue-300'}`}>{s}</button>))}</div></div>
                             <div className="grid grid-cols-3 gap-3">{[{id: 'tarawih', label: 'Tarawih'}, {id: 'witir', label: 'Witir'}, {id: 'tadarus', label: 'Tadarus'}].map(ibadah => (<div key={ibadah.id} onClick={() => toggleCheck(activeDay, ibadah.id)} className={`p-3 rounded-xl border-2 text-center cursor-pointer transition shadow-sm flex flex-col items-center justify-center h-24 ${userData[activeDay]?.[ibadah.id] ? 'bg-indigo-50 border-indigo-500' : 'bg-white border-slate-200 hover:bg-indigo-50'}`}><div className={`mb-1 ${userData[activeDay]?.[ibadah.id] ? 'text-indigo-600' : 'text-slate-300'}`}>{ibadah.id === 'tadarus' ? <Icons.BookOpen size={24}/> : <Icons.Star size={24} className={userData[activeDay]?.[ibadah.id] ? 'fill-indigo-600' : ''}/>}</div><span className="text-[10px] font-bold text-slate-700">{ibadah.label}</span><span className="text-[9px] text-slate-400">+10</span></div>))}</div>
