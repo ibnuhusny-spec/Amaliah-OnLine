@@ -62,7 +62,6 @@
             );
         };
 
-        // DAFTAR IKON
         const Icons = {
             Star: (p) => <Icon name="Star" {...p} />,
             Moon: (p) => <Icon name="Moon" {...p} />,
@@ -281,7 +280,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.2</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.4</p></div>
                     </div>
 
                     {viewState === 'pin_prompt' && (
@@ -331,7 +330,7 @@
             );
         }
 
-        // --- TEACHER DASHBOARD (3 TABS: POIN, AUDIO, FOTO) ---
+        // --- TEACHER DASHBOARD (FIXED: ROW INDEX + 3 TABS) ---
         function TeacherDashboard({ setRole, scriptUrl }) {
             const [data, setData] = useState([]);
             const [loading, setLoading] = useState(true);
@@ -362,8 +361,31 @@
             const handleSimpanNilai = async () => {
                 if (!selectedStudent) return;
                 setSaving(true);
-                const payload = JSON.stringify({ action: 'nilai', nama: selectedStudent.nama, hari: selectedStudent.hari, nilaiGuru: nilaiInput, koreksiGuru: koreksiInput });
-                try { await fetch(scriptUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload }); alert("Permintaan dikirim! (Silakan refresh data untuk memastikan)"); setSelectedStudent(null); fetchData(); } catch (e) { alert("Gagal menyimpan. Cek koneksi."); } finally { setSaving(false); }
+                
+                // --- PERBAIKAN PENTING DI SINI ---
+                // Kita mengirim 'rowIndex' yang didapat saat fetchData
+                // agar Backend tahu persis baris mana yang harus diupdate
+                const payload = JSON.stringify({ 
+                    action: 'nilai', 
+                    rowIndex: selectedStudent.rowIndex, // KUNCI UTAMA PERBAIKAN
+                    nama: selectedStudent.nama, 
+                    hari: selectedStudent.hari, 
+                    nilaiGuru: nilaiInput, 
+                    koreksiGuru: koreksiInput 
+                });
+
+                try { 
+                    await fetch(scriptUrl, { 
+                        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload 
+                    }); 
+                    alert("Nilai berhasil dikirim untuk baris yang tepat!"); 
+                    setSelectedStudent(null); 
+                    fetchData(); 
+                } catch (e) { 
+                    alert("Gagal menyimpan. Cek koneksi."); 
+                } finally { 
+                    setSaving(false); 
+                }
             };
 
             const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
@@ -384,7 +406,7 @@
             const getFilteredData = () => {
                 if (activeTab === 'audio') return data.filter(item => item.audio && item.audio.length > 50);
                 if (activeTab === 'foto') return data.filter(item => item.foto && item.foto.length > 50);
-                return data; // 'poin' returns all (or filter out empty points if needed)
+                return data; 
             };
 
             return (
