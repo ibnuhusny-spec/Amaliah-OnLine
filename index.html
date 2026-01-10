@@ -103,37 +103,55 @@
             List: (p) => <Icon name="List" {...p} />
         };
 
-        // --- DZIKIR PAGI & PETANG ---
+        // --- DZIKIR PAGI & PETANG (HISNUL MUSLIM) ---
         const DAFTAR_DZIKIR = [
             { 
-                judul: "1. Ayat Kursi (Dibaca Pagi & Sore)", 
-                arab: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", 
+                judul: "1. Ayat Kursi (Pagi & Petang)", 
+                arab: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ", 
                 latin: "Allahu laa ilaaha illa huwal hayyul qayyum...", 
-                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)..." 
+                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)... (Dibaca 1x)" 
             },
             { 
-                judul: "2. Surah Al-Ikhlas, Al-Falaq, An-Nas", 
-                arab: "Masing-masing dibaca 3x", 
-                latin: "(Membaca 3 Surah Terakhir dalam Al-Qur'an)", 
-                arti: "Siapa yang mengucapkannya masing-masing tiga kali ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya." 
+                judul: "2. Tiga Qul (Al-Ikhlas, Al-Falaq, An-Nas)", 
+                arab: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ . قُلْ هُوَ اللَّهُ أَحَدٌ ...", 
+                latin: "Qul huwallahu ahad... (dan seterusnya)", 
+                arti: "Masing-masing surah dibaca 3 kali. 'Barangsiapa membacanya 3x di pagi dan petang, maka akan dicukupkan dari segala sesuatu.'" 
             },
             { 
                 judul: "3. Sayyidul Istighfar", 
-                arab: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ...", 
+                arab: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", 
                 latin: "Allahumma anta rabbii laa ilaaha illa anta khalaqtanii wa anaa 'abduka...", 
-                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada Tuhan selain Engkau..." 
+                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada Tuhan selain Engkau. Engkau telah menciptakanku dan aku adalah hamba-Mu..." 
             },
             { 
-                judul: "4. Dzikir Pagi", 
+                judul: "4. Doa Perlindungan (3x)", 
+                arab: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
+                latin: "Bismillahilladzi laa yadhurru ma'asmihi syai-un fil ardhi wa laa fis samaa' wa huwas samii'ul 'aliim.", 
+                arti: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya, Dialah Yang Maha Mendengar lagi Maha Mengetahui." 
+            },
+            { 
+                judul: "5. Doa Ridho (3x)", 
+                arab: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
+                latin: "Radhiitu billahi rabba, wa bil islaami diina, wa bi Muhammadin shallallahu 'alaihi wa sallama nabiyya.", 
+                arti: "Aku ridho Allah sebagai Rabb, Islam sebagai agama, dan Muhammad shallallahu 'alaihi wa sallam sebagai Nabi." 
+            },
+            { 
+                judul: "6. Dzikir Pagi", 
                 arab: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...", 
                 latin: "Ashbahna wa ashbahal mulku lillahi...", 
-                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah..." 
+                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah..." 
             },
             { 
-                judul: "5. Dzikir Sore", 
+                judul: "7. Dzikir Sore", 
                 arab: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...", 
                 latin: "Amsaynaa wa amsaynal mulku lillah...", 
                 arti: "Kami telah memasuki waktu sore dan kerajaan hanya milik Allah..." 
+            },
+            { 
+                judul: "8. Tasbih & Tahmid (100x)", 
+                arab: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", 
+                latin: "Subhanallahi wa bihamdih.", 
+                arti: "Maha Suci Allah dan segala puji bagi-Nya. (Dibaca 100x)" 
             }
         ];
 
@@ -184,33 +202,46 @@
             const [magicLinkStatus, setMagicLinkStatus] = useState(null); 
 
             useEffect(() => {
-                const savedProfile = localStorage.getItem('ramadanProfile');
-                const globalUrl = localStorage.getItem('ramadanScriptUrl');
-                const savedPin = localStorage.getItem('teacherPin');
-                
+                // 1. Cek Magic Link di URL
                 const params = new URLSearchParams(window.location.search);
                 const guruScript = params.get('guru');
+                const sekolahParam = params.get('school'); // PARAMETER BARU
 
                 if (guruScript) {
+                    // MAGIC LINK DETECTED! Apply settings automatically
                     setScriptUrl(guruScript);
                     localStorage.setItem('ramadanScriptUrl', guruScript);
+                    
+                    if (sekolahParam) {
+                        const decodedSchool = decodeURIComponent(sekolahParam);
+                        setSchoolName(decodedSchool);
+                        
+                        // Update profile storage
+                        const savedProfile = localStorage.getItem('ramadanProfile') || '{}';
+                        const parsed = JSON.parse(savedProfile);
+                        parsed.schoolName = decodedSchool;
+                        parsed.scriptUrl = guruScript;
+                        localStorage.setItem('ramadanProfile', JSON.stringify(parsed));
+                    }
+
                     if (window.location.protocol !== 'file:') {
                         window.history.replaceState({}, document.title, window.location.pathname);
                     }
                     setMagicLinkStatus('success');
-                    setTimeout(() => setMagicLinkStatus(null), 5000); 
-                } else if (globalUrl) {
-                    setScriptUrl(globalUrl);
-                } 
-                
-                if (savedProfile) {
-                    const parsed = JSON.parse(savedProfile);
-                    if(parsed.schoolName) setSchoolName(parsed.schoolName);
-                    if (!guruScript && !globalUrl && parsed.scriptUrl) {
-                        setScriptUrl(parsed.scriptUrl);
+                    setTimeout(() => setMagicLinkStatus(null), 6000); 
+                } else {
+                    // Normal load
+                    const globalUrl = localStorage.getItem('ramadanScriptUrl');
+                    if(globalUrl) setScriptUrl(globalUrl);
+
+                    const savedProfile = localStorage.getItem('ramadanProfile');
+                    if (savedProfile) {
+                        const parsed = JSON.parse(savedProfile);
+                        if(parsed.schoolName) setSchoolName(parsed.schoolName);
                     }
                 }
 
+                const savedPin = localStorage.getItem('teacherPin');
                 if (savedPin) setTeacherPin(savedPin);
             }, []);
 
@@ -220,7 +251,6 @@
                 setTeacherPin(newPin);
                 localStorage.setItem('ramadanScriptUrl', newScriptUrl);
                 localStorage.setItem('teacherPin', newPin);
-                
                 const savedProfile = localStorage.getItem('ramadanProfile') || '{}';
                 const parsed = JSON.parse(savedProfile);
                 parsed.schoolName = newSchoolName;
@@ -230,7 +260,7 @@
             const renderContent = () => {
                 if (role === 'home') return <HomeView setRole={setRole} schoolName={schoolName} scriptUrl={scriptUrl} teacherPin={teacherPin} onSaveSettings={updateGlobalSettings} magicLinkStatus={magicLinkStatus} />;
                 if (role === 'teacher_login') return <TeacherLogin setRole={setRole} scriptUrl={scriptUrl} setScriptUrl={setScriptUrl} currentPin={teacherPin} />;
-                if (role === 'teacher') return <TeacherDashboard setRole={setRole} scriptUrl={scriptUrl} />;
+                if (role === 'teacher') return <TeacherDashboard setRole={setRole} scriptUrl={scriptUrl} schoolName={schoolName} />;
                 if (role === 'student') return <StudentApp setRole={setRole} globalScriptUrl={scriptUrl} schoolName={schoolName} />;
                 return null;
             };
@@ -240,8 +270,12 @@
                     <div className="w-full max-w-md bg-white shadow-2xl overflow-hidden min-h-screen relative font-sans">
                         {renderContent()}
                         {magicLinkStatus === 'success' && (
-                            <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-full shadow-2xl z-[100] animate-in fade-in slide-in-from-top-4 flex items-center gap-2">
-                                <Icons.Wifi size={20}/> <span className="font-bold text-sm">Berhasil Terhubung ke Guru!</span>
+                            <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl z-[100] animate-in fade-in slide-in-from-top-4 flex flex-col items-center text-center">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <Icons.Wifi size={24} className="animate-pulse"/> 
+                                    <span className="font-bold text-lg">Terkoneksi!</span>
+                                </div>
+                                <p className="text-xs text-green-100">Sekolah: {schoolName}</p>
                             </div>
                         )}
                     </div>
@@ -250,7 +284,7 @@
         }
 
         // --- HOME SCREEN ---
-        function HomeView({ setRole, schoolName, scriptUrl, teacherPin, onSaveSettings, magicLinkStatus }) {
+        function HomeView({ setRole, schoolName, scriptUrl, teacherPin, onSaveSettings }) {
             const [viewState, setViewState] = useState('home'); 
             const [tempSchoolName, setTempSchoolName] = useState(schoolName);
             const [tempScriptUrl, setTempScriptUrl] = useState(scriptUrl);
@@ -274,7 +308,7 @@
 
             const handleSave = () => {
                 onSaveSettings(tempSchoolName, tempScriptUrl, tempPin);
-                alert("Pengaturan tersimpan! Nama Sekolah diperbarui.");
+                alert("Pengaturan tersimpan! Nama Sekolah & Link diperbarui.");
             };
 
             const goToDashboard = () => {
@@ -311,7 +345,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.8 (Fix All)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 4.0</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -361,8 +395,8 @@
             );
         }
 
-        // --- TEACHER DASHBOARD (WITH ROW INDEX LOCKING) ---
-        function TeacherDashboard({ setRole, scriptUrl }) {
+        // --- TEACHER DASHBOARD (WITH MAGIC LINK V2 + NO JOURNAL GRADING) ---
+        function TeacherDashboard({ setRole, scriptUrl, schoolName }) {
             const [data, setData] = useState([]);
             const [loading, setLoading] = useState(true);
             const [selectedStudent, setSelectedStudent] = useState(null);
@@ -394,7 +428,7 @@
                 setSaving(true);
                 const payload = JSON.stringify({ 
                     action: 'nilai', 
-                    rowIndex: selectedStudent.rowIndex, // KUNCI BARIS UNIK
+                    rowIndex: selectedStudent.rowIndex, 
                     nama: selectedStudent.nama, 
                     hari: selectedStudent.hari, 
                     nilaiGuru: nilaiInput, 
@@ -405,13 +439,17 @@
 
             const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
 
+            // MAGIC LINK V2: INCLUDES SCHOOL NAME
             const copyStudentLink = () => {
                 if (!scriptUrl) { alert("Link Script kosong!"); return; }
                 const isLocal = window.location.protocol === 'file:';
                 if (isLocal) { prompt("Anda offline. Salin Link Script ini manual:", scriptUrl); return; }
+                
                 const baseUrl = window.location.href.split('?')[0];
-                const magicLink = `${baseUrl}?guru=${encodeURIComponent(scriptUrl)}`;
-                if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => alert("Link Ajaib tersalin!")).catch(() => prompt("Salin manual:", magicLink)); } else { prompt("Salin link:", magicLink); }
+                // Encode both URL and School Name
+                const magicLink = `${baseUrl}?guru=${encodeURIComponent(scriptUrl)}&school=${encodeURIComponent(schoolName)}`;
+                
+                if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => alert("✨ Link Ajaib Tersalin!\n\nLink ini sudah berisi: \n1. Koneksi Database\n2. Nama Sekolah ("+schoolName+")\n\nMurid tinggal klik & pakai!")).catch(() => prompt("Salin manual:", magicLink)); } else { prompt("Salin link:", magicLink); }
             };
 
             const getFilteredData = () => {
@@ -432,15 +470,36 @@
                             ))}
                         </div>
                     </div>
-                    <div className="p-4 space-y-3">
+
+                    <div className="p-4 pb-0">
+                        <div className="bg-blue-50 border border-blue-200 p-3 rounded-xl flex flex-col gap-3 shadow-sm mb-4">
+                            <div className="flex items-start gap-2"><div className="bg-blue-100 p-2 rounded-full text-blue-600"><Icons.Link size={16}/></div><div><span className="font-bold text-sm text-blue-800 block">Link Ajaib (Full Auto)</span><span className="text-xs text-blue-600 leading-tight block">Kirim ini ke murid. Nama sekolah & koneksi otomatis tersetting.</span></div></div>
+                            <button onClick={copyStudentLink} className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 active:scale-95 shadow hover:bg-blue-700 transition"><Icons.Copy size={14}/> Salin Link Ajaib</button>
+                        </div>
+                    </div>
+
+                    <div className="p-4 space-y-3 pt-0">
                         {loading ? <div className="text-center py-10 text-slate-400">Memuat data...</div> : 
+                        getFilteredData().length === 0 ? <div className="text-center py-10 text-slate-400 bg-white rounded-xl border border-dashed border-slate-300">Belum ada setoran di kategori ini.</div> :
                         getFilteredData().map((item, idx) => (
                         <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                             <div className="flex justify-between items-start mb-2"><div><h3 className="font-bold text-slate-800 flex items-center gap-2">{item.nama} <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-500">#{item.rowIndex}</span></h3><p className="text-xs text-slate-500">Hari ke-{item.hari} • {item.kelas}</p></div>{activeTab === 'jurnal' && <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin (Auto)</span>}</div>
                             {activeTab === 'jurnal' && <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian}</div>}
                             {activeTab === 'hafalan' && <div className="mb-3"><div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2"><div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Audio</span></div><audio controls src={item.audio} className="h-8 w-32" /></div><div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div></div>}
                             {activeTab === 'galeri' && <div className="mb-3"><img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" /><div className="text-[10px] text-slate-500 italic">{item.rincian}</div></div>}
-                            <div className="border-t pt-2 mt-2 flex justify-between items-center"><div className="text-xs">{item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : <span className="text-red-400 italic">Belum dinilai</span>}</div><button onClick={() => openModal(item)} className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow hover:bg-emerald-700"><Icons.PenTool size={12}/> Nilai</button></div>
+                            
+                            {/* HANYA TAMPILKAN TOMBOL NILAI UTK HAFALAN & FOTO */}
+                            <div className="border-t pt-2 mt-2 flex justify-between items-center">
+                                <div className="text-xs">
+                                    {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : <span className="text-red-400 italic">Belum dinilai</span>}
+                                    {item.koreksiGuru && <span className="text-slate-400 ml-2 italic text-[10px]">"{item.koreksiGuru}"</span>}
+                                </div>
+                                {activeTab !== 'jurnal' ? 
+                                    <button onClick={() => openModal(item)} className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow hover:bg-emerald-700"><Icons.PenTool size={12}/> Nilai</button>
+                                    :
+                                    <span className="text-[10px] text-slate-400 flex items-center gap-1"><Icons.CheckCircle size={10}/> Laporan Jurnal</span>
+                                }
+                            </div>
                         </div>
                         ))}
                     </div>
@@ -506,7 +565,6 @@
                     return { ...prev, [day]: { ...dayData, [field]: !dayData[field] } };
                 });
             };
-            // NEW: PUASA TOGGLE (Radio Logic)
             const togglePuasa = (type) => {
                 if (userData[activeDay]?.validated) return;
                 setUserData(prev => {
@@ -524,22 +582,30 @@
             
             const calculateDailyScore = (dayData, dayIndex) => { 
                 let score = 0; if (!dayData) return 0; 
-                // LOGIKA PUASA BARU
-                if (dayData.puasaPenuh) score += 20; 
-                else if (dayData.puasaSetengah) score += 10;
-
+                if (dayData.puasaPenuh) score += 20; else if (dayData.puasaSetengah) score += 10;
                 if (dayData.subuh) score += 10; if (dayData.zuhur) score += 10; if (dayData.ashar) score += 10; if (dayData.maghrib) score += 10; if (dayData.isya) score += 10; 
                 if (dayData.tarawih) score += 10; if (dayData.witir) score += 10; if (dayData.tadarus) score += 10; if (dayData.salatMalam) { score += (dayIndex >= 21) ? 20 : 10; } if (dayData.bantuIbu) score += 5; if (dayData.kosakata) score += 5; if (dayData.amalanLainCheck) score += 5; if (dayData.hafalDoa) score += 10; if (dayData.namaPenceramah) score += 5; if (dayData.temaCeramah) score += 10; return score; 
             };
-            const calculateTotalScore = () => { let score = 0; Object.entries(userData).forEach(([d, data]) => score += calculateDailyScore(data, parseInt(d))); return score; };
+            const calculateTotalLocalScore = () => { let score = 0; Object.entries(userData).forEach(([d, data]) => score += calculateDailyScore(data, parseInt(d))); return score; };
             
-            // FIX: Combined Score Logic (Teacher Grade if available, else Student Estimate)
+            // TOTAL POIN GABUNGAN: (Nilai Auto dari Jurnal) + (Nilai Guru dari Hafalan/Foto)
             const getDisplayScore = () => {
-                if (raportData.length > 0) return totalGuruScore; // Prioritaskan Data Guru jika ada
-                return calculateTotalScore(); // Fallback ke estimasi lokal
+                const localScore = calculateTotalLocalScore();
+                // Tambahkan nilai dari server (khusus untuk Hafalan & Foto yang dinilai guru)
+                // Kita anggap nilai dari server adalah tambahan untuk Hafalan/Foto, karena poin Jurnal dihitung lokal
+                // Namun, untuk menghindari duplikasi jika Guru menilai Jurnal (seharusnya tidak), kita hanya ambil total.
+                
+                // LOGIKA SIMPLE: Total Poin = (Poin Jurnal Murid) + (Poin Hafalan/Foto Guru)
+                // Kita perlu filter raportData yang merupakan audio/foto
+                const teacherScore = raportData.reduce((acc, curr) => {
+                    const isMedia = (curr.audio && curr.audio.length > 50) || (curr.foto && curr.foto.length > 50);
+                    return isMedia ? acc + (parseInt(curr.nilaiGuru) || 0) : acc;
+                }, 0);
+
+                return localScore + teacherScore; 
             };
 
-            const sendData = async () => { if(!studentProfile.scriptUrl) return alert("Link Script Guru belum diisi! Hubungi gurumu."); if(view === 'hafalan' && (!audioBlob || !namaSurah)) return alert("Rekam & isi nama surah dulu!"); setIsSubmitting(true); try { const dayData = userData[activeDay] || {}; let payload = {}; if(view === 'hafalan') { const b64Audio = await blobToBase64(audioBlob); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: `🎤 Hafalan: ${namaSurah}`, audio: b64Audio, namaSurah: namaSurah }; } else { let rincian = []; if(dayData.salatMalam) rincian.push("✅ Qiyam"); if(dayData.bantuIbu) rincian.push("✅ Bantu Ortu"); if(dayData.kosakata) rincian.push("✅ Kosakata"); if(dayData.amalanLainCheck) rincian.push(`✅ ${dayData.amalanLain || 'Amalan Lain'}`); if(dayData.tarawih) rincian.push("✅ Tarawih"); if(dayData.witir) rincian.push("✅ Witir"); if(dayData.tadarus) rincian.push("✅ Tadarus"); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: rincian.join(", "), foto: base64Image, namaFoto: selectedImage }; } await fetch(studentProfile.scriptUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }); triggerConfetti(); alert("Terkirim! Guru akan segera menerima datamu."); if(view==='hafalan') deleteRecording(); if(view==='achievements') removeImage(); } catch(e) { alert("Gagal kirim. Cek internet atau link guru."); } finally { setIsSubmitting(false); } };
+            const sendData = async () => { if(!studentProfile.scriptUrl) return alert("Link Script Guru belum diisi! Hubungi gurumu."); if(view === 'hafalan' && (!audioBlob || !namaSurah)) return alert("Rekam & isi nama surah dulu!"); setIsSubmitting(true); try { const dayData = userData[activeDay] || {}; let payload = {}; if(view === 'hafalan') { const b64Audio = await blobToBase64(audioBlob); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: 0, puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: `🎤 Hafalan: ${namaSurah}`, audio: b64Audio, namaSurah: namaSurah }; } else if(view === 'achievements') { payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: 0, puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: `📸 Foto: ${selectedImage || 'Kegiatan'}`, foto: base64Image, namaFoto: selectedImage }; } else { let rincian = []; if(dayData.salatMalam) rincian.push("✅ Qiyam"); if(dayData.bantuIbu) rincian.push("✅ Bantu Ortu"); if(dayData.kosakata) rincian.push("✅ Kosakata"); if(dayData.amalanLainCheck) rincian.push(`✅ ${dayData.amalanLain || 'Amalan Lain'}`); if(dayData.tarawih) rincian.push("✅ Tarawih"); if(dayData.witir) rincian.push("✅ Witir"); if(dayData.tadarus) rincian.push("✅ Tadarus"); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: rincian.join(", "), foto: "-", audio: "-" }; } await fetch(studentProfile.scriptUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }); triggerConfetti(); alert("Terkirim! Guru akan segera menerima datamu."); if(view==='hafalan') deleteRecording(); if(view==='achievements') removeImage(); fetchRaport(); } catch(e) { alert("Gagal kirim. Cek internet atau link guru."); } finally { setIsSubmitting(false); } };
             
             const fetchRaport = async () => { 
                 if (!studentProfile.scriptUrl) return; 
@@ -549,13 +615,13 @@
                     const json = await res.json(); 
                     const myData = json.filter(row => row.nama.toLowerCase() === studentProfile.name.toLowerCase()); 
                     setRaportData(myData); 
-                    // Hitung Total Nilai Guru (Hanya menjumlahkan yang sudah dinilai)
+                    
+                    // Hitung Total Nilai Guru
                     const total = myData.reduce((acc, curr) => acc + (parseInt(curr.nilaiGuru) || 0), 0);
                     setTotalGuruScore(total);
                 } catch(e) {} finally { setLoadingRaport(false); } 
             };
             
-            // Auto fetch raport saat buka app untuk update total score di header
             useEffect(() => { fetchRaport(); }, [studentProfile.scriptUrl]);
             useEffect(() => { if (view === 'raport') fetchRaport(); }, [view]);
 
@@ -577,30 +643,23 @@
                     <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{schoolName}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Total Poin:</span><span className="text-xl font-black text-yellow-300">{getDisplayScore()}</span></div></div>
                     <div className="px-4 -mt-4 relative z-10">
                         <div className="bg-white p-1 rounded-xl shadow-md flex mb-4 text-[10px] font-bold text-center border border-slate-100 overflow-x-auto">{['journal', 'doa', 'hafalan', 'raport', 'achievements'].map(m => (<button key={m} onClick={() => setView(m)} className={`flex-1 py-2 px-1 capitalize rounded-lg transition-colors border ${view===m ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-slate-400 border-transparent hover:bg-slate-50'}`}>{m === 'achievements' ? 'Lapor' : m === 'journal' ? 'Jurnal' : m === 'doa' ? 'Dzikir' : m}</button>))}</div>
-                        {view === 'journal' && (<div className="space-y-4 animate-in fade-in"><div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>{userData[activeDay]?.validated && <div className="bg-green-100 text-green-700 p-2 rounded-lg text-xs font-bold text-center border border-green-200">✅ Data sudah divalidasi</div>}<div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div>
-                        
-                        {/* UPDATE: PUASA SETENGAH HARI */}
-                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-4">
-                            <h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Sun size={12}/> Puasa Hari Ini</h3>
-                            <div className="flex gap-2">
-                                <button onClick={() => togglePuasa('penuh')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaPenuh ? 'bg-orange-50 border-orange-500' : 'bg-white border-slate-100'}`}>
-                                    <Icons.Sun size={20} className={userData[activeDay]?.puasaPenuh ? "text-orange-500" : "text-slate-300"} />
-                                    <span className="text-xs font-bold mt-1 text-slate-700">Penuh (20)</span>
-                                </button>
-                                <button onClick={() => togglePuasa('setengah')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaSetengah ? 'bg-blue-50 border-blue-500' : 'bg-white border-slate-100'}`}>
-                                    <Icons.CloudSun size={20} className={userData[activeDay]?.puasaSetengah ? "text-blue-500" : "text-slate-300"} />
-                                    <span className="text-xs font-bold mt-1 text-slate-700">Setengah (10)</span>
-                                </button>
+                        {view === 'journal' && (<div className="space-y-4 animate-in fade-in">
+                            <div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>
+                            <div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div>
+                            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-4"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Sun size={12}/> Puasa Hari Ini</h3><div className="flex gap-2"><button onClick={() => togglePuasa('penuh')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaPenuh ? 'bg-orange-50 border-orange-500' : 'bg-white border-slate-100'}`}><Icons.Sun size={20} className={userData[activeDay]?.puasaPenuh ? "text-orange-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Penuh (20)</span></button><button onClick={() => togglePuasa('setengah')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaSetengah ? 'bg-blue-50 border-blue-500' : 'bg-white border-slate-100'}`}><Icons.CloudSun size={20} className={userData[activeDay]?.puasaSetengah ? "text-blue-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Setengah (10)</span></button></div></div>
+                            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Shalat Wajib (+10)</h3><div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">{['Subuh','Zuhur','Ashar','Maghrib','Isya'].map(s => (<button key={s} onClick={() => toggleCheck(activeDay, s.toLowerCase())} className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold border transition ${userData[activeDay]?.[s.toLowerCase()] ? 'bg-blue-500 text-white border-blue-500 shadow-md' : 'bg-slate-50 text-slate-400 border-slate-200 hover:border-blue-300'}`}>{s}</button>))}</div></div>
+                            <div className="grid grid-cols-3 gap-3">{[{id: 'tarawih', label: 'Tarawih'}, {id: 'witir', label: 'Witir'}, {id: 'tadarus', label: 'Tadarus'}].map(ibadah => (<div key={ibadah.id} onClick={() => toggleCheck(activeDay, ibadah.id)} className={`p-3 rounded-xl border-2 text-center cursor-pointer transition shadow-sm flex flex-col items-center justify-center h-24 ${userData[activeDay]?.[ibadah.id] ? 'bg-indigo-50 border-indigo-500' : 'bg-white border-slate-200 hover:bg-indigo-50'}`}><div className={`mb-1 ${userData[activeDay]?.[ibadah.id] ? 'text-indigo-600' : 'text-slate-300'}`}>{ibadah.id === 'tadarus' ? <Icons.BookOpen size={24}/> : <Icons.Star size={24} className={userData[activeDay]?.[ibadah.id] ? 'fill-indigo-600' : ''}/>}</div><span className="text-[10px] font-bold text-slate-700">{ibadah.label}</span><span className="text-[9px] text-slate-400">+10</span></div>))}</div>
+                            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3"><h3 className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1"><Icons.Heart size={12}/> Amalan Harian (+5 Poin)</h3>{[{id: 'bantuIbu', label: 'Membantu Ayah/Ibu'}, {id: 'kosakata', label: 'Menghafal Kosakata'}].map(a => (<div key={a.id} onClick={() => toggleCheck(activeDay, a.id)} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${userData[activeDay]?.[a.id] ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200 hover:bg-white'}`}><span className="text-sm font-bold text-slate-700">{a.label}</span>{userData[activeDay]?.[a.id] && <Icons.CheckCircle size={18} className="text-emerald-500"/>}</div>))}<div className={`p-3 rounded-xl border transition ${userData[activeDay]?.amalanLainCheck ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200'}`}><div className="flex items-center gap-2 mb-2"><input type="checkbox" checked={!!userData[activeDay]?.amalanLainCheck} onChange={() => toggleCheck(activeDay, 'amalanLainCheck')} className="w-5 h-5 accent-emerald-600 rounded cursor-pointer" /><span className="text-sm font-bold text-slate-700">Amalan Lainnya</span></div><input type="text" placeholder="Tulis amalanmu..." className="w-full text-xs p-2 rounded border border-slate-200 bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none" value={userData[activeDay]?.amalanLain || ''} onChange={(e) => updateField(activeDay, 'amalanLain', e.target.value)} /></div></div>
+                            <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Mic size={12}/> Jurnal Ceramah</h3><div className="space-y-3"><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Nama Penceramah (+5)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Contoh: Al-Ustaz Khidir bin Muh. Sunusi" value={userData[activeDay]?.namaPenceramah || ''} onChange={e => updateField(activeDay, 'namaPenceramah', e.target.value)} /></div><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Tema Ceramah (+10)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Isi tema ceramah..." value={userData[activeDay]?.temaCeramah || ''} onChange={e => updateField(activeDay, 'temaCeramah', e.target.value)} /></div></div></div>
+                            
+                            <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 text-center shadow-sm mb-2">
+                                <button onClick={sendData} disabled={isSubmitting} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-blue-700 shadow-md">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan Jurnal</button>
+                                <p className="text-[10px] text-blue-600 mt-2">Poin jurnal dihitung otomatis oleh sistem.</p>
                             </div>
-                        </div>
+                        </div>)}
 
-                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Shalat Wajib (+10)</h3><div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">{['Subuh','Zuhur','Ashar','Maghrib','Isya'].map(s => (<button key={s} onClick={() => toggleCheck(activeDay, s.toLowerCase())} className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold border transition ${userData[activeDay]?.[s.toLowerCase()] ? 'bg-blue-500 text-white border-blue-500 shadow-md' : 'bg-slate-50 text-slate-400 border-slate-200 hover:border-blue-300'}`}>{s}</button>))}</div></div>
-                        <div className="grid grid-cols-3 gap-3">{[{id: 'tarawih', label: 'Tarawih'}, {id: 'witir', label: 'Witir'}, {id: 'tadarus', label: 'Tadarus'}].map(ibadah => (<div key={ibadah.id} onClick={() => toggleCheck(activeDay, ibadah.id)} className={`p-3 rounded-xl border-2 text-center cursor-pointer transition shadow-sm flex flex-col items-center justify-center h-24 ${userData[activeDay]?.[ibadah.id] ? 'bg-indigo-50 border-indigo-500' : 'bg-white border-slate-200 hover:bg-indigo-50'}`}><div className={`mb-1 ${userData[activeDay]?.[ibadah.id] ? 'text-indigo-600' : 'text-slate-300'}`}>{ibadah.id === 'tadarus' ? <Icons.BookOpen size={24}/> : <Icons.Star size={24} className={userData[activeDay]?.[ibadah.id] ? 'fill-indigo-600' : ''}/>}</div><span className="text-[10px] font-bold text-slate-700">{ibadah.label}</span><span className="text-[9px] text-slate-400">+10</span></div>))}</div>
-                        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3"><h3 className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1"><Icons.Heart size={12}/> Amalan Harian (+5 Poin)</h3>{[{id: 'bantuIbu', label: 'Membantu Ayah/Ibu'}, {id: 'kosakata', label: 'Menghafal Kosakata'}].map(a => (<div key={a.id} onClick={() => toggleCheck(activeDay, a.id)} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${userData[activeDay]?.[a.id] ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200 hover:bg-white'}`}><span className="text-sm font-bold text-slate-700">{a.label}</span>{userData[activeDay]?.[a.id] && <Icons.CheckCircle size={18} className="text-emerald-500"/>}</div>))}<div className={`p-3 rounded-xl border transition ${userData[activeDay]?.amalanLainCheck ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200'}`}><div className="flex items-center gap-2 mb-2"><input type="checkbox" checked={!!userData[activeDay]?.amalanLainCheck} onChange={() => toggleCheck(activeDay, 'amalanLainCheck')} className="w-5 h-5 accent-emerald-600 rounded cursor-pointer" /><span className="text-sm font-bold text-slate-700">Amalan Lainnya</span></div><input type="text" placeholder="Tulis amalanmu..." className="w-full text-xs p-2 rounded border border-slate-200 bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none" value={userData[activeDay]?.amalanLain || ''} onChange={(e) => updateField(activeDay, 'amalanLain', e.target.value)} /></div></div>
-                        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Mic size={12}/> Jurnal Ceramah</h3><div className="space-y-3"><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Nama Penceramah (+5)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Contoh: Al-Ustaz Khidir bin Muh. Sunusi" value={userData[activeDay]?.namaPenceramah || ''} onChange={e => updateField(activeDay, 'namaPenceramah', e.target.value)} /></div><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Tema Ceramah (+10)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Isi tema ceramah..." value={userData[activeDay]?.temaCeramah || ''} onChange={e => updateField(activeDay, 'temaCeramah', e.target.value)} /></div></div></div><div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-center shadow-sm"><button onClick={() => toggleValidation(activeDay)} className="w-full py-2 bg-white border border-yellow-400 text-yellow-700 rounded-lg text-xs font-bold hover:bg-yellow-50 shadow-sm">{userData[activeDay]?.validated ? 'Buka Validasi' : 'Tanda Tangan Orang Tua'}</button></div></div>)}
                         {view === 'hafalan' && (<div className="bg-white p-6 rounded-2xl text-center shadow-sm animate-in fade-in border border-slate-200"><Icons.Mic size={40} className="mx-auto text-emerald-500 mb-2"/><h2 className="font-bold mb-4">Setor Hafalan Audio</h2><input className="w-full border p-3 rounded-xl mb-4 text-sm bg-slate-50 focus:bg-white focus:border-emerald-500 outline-none" placeholder="Contoh: Surah An-Nas / Hadits Niat" value={namaSurah} onChange={e=>setNamaSurah(e.target.value)}/>{!audioUrl ? <button onClick={isRecording ? stopRecording : startRecording} className={`w-full py-6 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95 border ${isRecording ? 'bg-red-500 border-red-600 animate-pulse' : 'bg-blue-600 border-blue-700 hover:bg-blue-700'}`}>{isRecording ? <Icons.StopCircle/> : <Icons.Mic/>} {isRecording ? 'Stop Rekam' : 'Mulai Rekam'}</button> : <div className="space-y-3"><div className="bg-slate-100 p-3 rounded-xl flex items-center gap-2 border border-slate-200"><Icons.Play className="text-blue-500" size={20}/> <span className="text-xs font-bold">Rekaman Siap</span></div><div className="flex gap-2"><button onClick={deleteRecording} className="flex-1 py-3 text-red-500 bg-red-50 rounded-xl font-bold text-xs border border-red-200 hover:bg-red-100">Hapus</button><button onClick={() => {const a = new Audio(audioUrl); a.play()}} className="flex-1 py-3 text-blue-500 bg-blue-50 rounded-xl font-bold text-xs border border-blue-200 hover:bg-blue-100">Dengar</button></div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-green-600 text-white py-3 rounded-xl font-bold flex justify-center gap-2 mt-2 shadow-lg hover:bg-green-700 border border-green-700">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Hafalan</button></div>}</div>)}
                         
-                        {/* UPDATE DZIKIR PAGI & PETANG */}
                         {view === 'doa' && (<div className="space-y-3 pb-10">
                             {DAFTAR_DZIKIR.map((doa, i) => (
                                 <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
@@ -612,24 +671,7 @@
                             ))}
                         </div>)}
                         
-                        {/* RAPOR: Menampilkan Total Nilai dari Guru */}
-                        {view === 'raport' && (<div className="space-y-3 pb-10">
-                            <div className="bg-indigo-900 text-white p-4 rounded-xl mb-4 shadow-lg border border-indigo-800">
-                                <h2 className="font-bold text-lg mb-1 flex items-center gap-2"><Icons.Award className="text-yellow-300"/> Total Nilai Guru</h2>
-                                <p className="text-xs text-indigo-200 mb-2">Nilai resmi yang telah divalidasi</p>
-                                <div className="text-3xl font-black text-yellow-300">{loadingRaport ? '...' : totalGuruScore}</div>
-                            </div>
-                            <h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat Setoran</h2>
-                            {loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => (
-                            <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100">
-                                <div className="flex justify-between text-xs text-slate-500 mb-2"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div>
-                                {item.audio && item.audio.length > 20 && <div className="mb-2 bg-blue-50 p-2 rounded border border-blue-100 flex items-center gap-2"><Icons.Play size={12} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Setoran Audio</span></div>}
-                                {item.foto && item.foto.length > 20 && <div className="mb-2"><img src={item.foto} className="h-20 w-full object-cover rounded border border-slate-200" alt="Bukti"/></div>}
-                                <div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>
-                                {(item.nilaiGuru || item.koreksiGuru) ? (<div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">{item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}{item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}</div>) : <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div>}
-                            </div>))}
-                        </div>)}
-                        
+                        {view === 'raport' && (<div className="space-y-3 pb-10"><h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat & Nilai</h2>{loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => (<div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100"><div className="flex justify-between text-xs text-slate-500 mb-1"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div><div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>{(item.nilaiGuru || item.koreksiGuru) ? (<div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">{item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}{item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}</div>) : <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div>}</div>))}</div>)}
                         {view === 'achievements' && (<div className="bg-white p-5 rounded-2xl shadow-sm text-center border border-slate-200"><h2 className="text-lg font-bold mb-1">Lapor Harian</h2><p className="text-xs text-slate-500 mb-4">Kirim poin jurnal & foto bukti kegiatan.</p><div className="mb-4 text-left p-3 bg-slate-50 rounded-xl border border-dashed border-slate-300"><label className="text-xs font-bold text-slate-400 block mb-2">Upload Foto (Opsional)</label>{!selectedImage ? <label className="flex items-center justify-center h-20 cursor-pointer hover:bg-slate-100 transition rounded-lg"><Icons.Camera className="text-slate-300 mr-2"/><span className="text-xs text-slate-400">Ambil Foto (Max 2MB)</span><input type="file" accept="image/*" className="hidden" onChange={handleImageUpload}/></label> : <div className="flex items-center justify-between"><span className="text-xs truncate max-w-[150px]">{selectedImage}</span><button onClick={removeImage} className="text-red-500 p-2 hover:bg-red-50 rounded-full"><Icons.XIcon size={16}/></button></div>}</div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2 hover:bg-emerald-700 border border-emerald-700 transition transform active:scale-95">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan</button></div>)}
                     </div>
                     {showConfetti && <div className="fixed inset-0 flex items-center justify-center z-50 text-6xl animate-bounce">🎉</div>}
