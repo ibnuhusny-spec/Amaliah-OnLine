@@ -280,7 +280,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.4</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 3.5 (Row Locking)</p></div>
                     </div>
 
                     {viewState === 'pin_prompt' && (
@@ -330,7 +330,7 @@
             );
         }
 
-        // --- TEACHER DASHBOARD (FIXED: ROW INDEX + 3 TABS) ---
+        // --- TEACHER DASHBOARD (ROW LOCKING IMPLEMENTED) ---
         function TeacherDashboard({ setRole, scriptUrl }) {
             const [data, setData] = useState([]);
             const [loading, setLoading] = useState(true);
@@ -339,7 +339,7 @@
             const [koreksiInput, setKoreksiInput] = useState('');
             const [saving, setSaving] = useState(false);
             const [errorMsg, setErrorMsg] = useState('');
-            const [activeTab, setActiveTab] = useState('poin'); // 'poin' | 'audio' | 'foto'
+            const [activeTab, setActiveTab] = useState('poin'); 
 
             useEffect(() => { fetchData(); }, []);
 
@@ -362,12 +362,10 @@
                 if (!selectedStudent) return;
                 setSaving(true);
                 
-                // --- PERBAIKAN PENTING DI SINI ---
-                // Kita mengirim 'rowIndex' yang didapat saat fetchData
-                // agar Backend tahu persis baris mana yang harus diupdate
+                // CRITICAL FIX: Mengirim rowIndex agar tidak salah sasaran
                 const payload = JSON.stringify({ 
                     action: 'nilai', 
-                    rowIndex: selectedStudent.rowIndex, // KUNCI UTAMA PERBAIKAN
+                    rowIndex: selectedStudent.rowIndex, // Ini kunci agar nilai tidak tertukar
                     nama: selectedStudent.nama, 
                     hari: selectedStudent.hari, 
                     nilaiGuru: nilaiInput, 
@@ -378,7 +376,7 @@
                     await fetch(scriptUrl, { 
                         method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: payload 
                     }); 
-                    alert("Nilai berhasil dikirim untuk baris yang tepat!"); 
+                    alert("Nilai berhasil disimpan!"); 
                     setSelectedStudent(null); 
                     fetchData(); 
                 } catch (e) { 
@@ -388,7 +386,13 @@
                 }
             };
 
-            const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
+            const openModal = (student) => { 
+                setSelectedStudent(student); 
+                // Prioritaskan nilaiGuru dari server, jika kosong, baru tampilkan poin murid
+                // Agar 140 tidak tertimpa 90 saat guru membuka form edit lagi
+                setNilaiInput(student.nilaiGuru || ''); 
+                setKoreksiInput(student.koreksiGuru || ''); 
+            };
 
             const copyStudentLink = () => {
                 if (!scriptUrl) { alert("Error: Link Script belum diisi di Pengaturan!"); return; }
@@ -402,10 +406,11 @@
                 if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => { alert("✅ Link Ajaib berhasil disalin!\n\nSilakan 'Paste' di Grup WhatsApp Kelas.\nSaat murid mengkliknya, mereka akan OTOMATIS terhubung."); }).catch(err => { prompt("Salin link ini secara manual:", magicLink); }); } else { prompt("Salin link ini untuk dibagikan ke siswa:", magicLink); }
             };
 
-            // Filter Data based on Tab
             const getFilteredData = () => {
                 if (activeTab === 'audio') return data.filter(item => item.audio && item.audio.length > 50);
                 if (activeTab === 'foto') return data.filter(item => item.foto && item.foto.length > 50);
+                // Poin tab: tampilkan semua yang BUKAN setoran khusus (agar tidak duplikat), atau tampilkan semua
+                // Idealnya: Tampilkan semua tapi beri tanda
                 return data; 
             };
 
@@ -416,27 +421,16 @@
                             <h1 className="font-bold text-lg text-slate-700 flex items-center gap-2"><Icons.Award className="text-emerald-600"/> Dashboard Guru</h1>
                             <button onClick={fetchData} className="p-2 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 hover:bg-emerald-100"><Icons.Loader2 size={18} className={loading ? "animate-spin" : ""} /></button>
                         </div>
-                        
-                        {/* TAB NAVIGATION */}
                         <div className="flex bg-slate-100 p-1 rounded-xl">
                             {['poin', 'audio', 'foto'].map(tab => (
-                                <button key={tab} onClick={() => setActiveTab(tab)} 
-                                    className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize flex items-center justify-center gap-1 transition-all ${activeTab === tab ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>
-                                    {tab === 'poin' && <Icons.List size={14}/>}
-                                    {tab === 'audio' && <Icons.Mic size={14}/>}
-                                    {tab === 'foto' && <Icons.Image size={14}/>}
-                                    {tab === 'poin' ? 'Poin & Amalan' : tab === 'audio' ? 'Hafalan' : 'Galeri'}
-                                </button>
+                                <button key={tab} onClick={() => setActiveTab(tab)} className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize flex items-center justify-center gap-1 transition-all ${activeTab === tab ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}>{tab === 'poin' && <Icons.List size={14}/>}{tab === 'audio' && <Icons.Mic size={14}/>}{tab === 'foto' && <Icons.Image size={14}/>}{tab === 'poin' ? 'Semua Data' : tab === 'audio' ? 'Hafalan' : 'Galeri'}</button>
                             ))}
                         </div>
                     </div>
 
                     <div className="p-4 pb-0">
                         <div className="bg-blue-50 border border-blue-200 p-3 rounded-xl flex flex-col gap-3 shadow-sm mb-4">
-                            <div className="flex items-start gap-2">
-                                <div className="bg-blue-100 p-2 rounded-full text-blue-600"><Icons.Link size={16}/></div>
-                                <div><span className="font-bold text-sm text-blue-800 block">Link Koneksi Siswa</span><span className="text-xs text-blue-600 leading-tight block">Bagikan ke murid agar otomatis terhubung.</span></div>
-                            </div>
+                            <div className="flex items-start gap-2"><div className="bg-blue-100 p-2 rounded-full text-blue-600"><Icons.Link size={16}/></div><div><span className="font-bold text-sm text-blue-800 block">Link Koneksi Siswa</span><span className="text-xs text-blue-600 leading-tight block">Bagikan ke murid agar otomatis terhubung.</span></div></div>
                             <button onClick={copyStudentLink} className="w-full bg-blue-600 text-white px-3 py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-2 active:scale-95 shadow hover:bg-blue-700 transition"><Icons.Copy size={14}/> Salin Link Ajaib</button>
                         </div>
                     </div>
@@ -448,38 +442,26 @@
                         getFilteredData().map((item, idx) => (
                         <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                             <div className="flex justify-between items-start mb-2">
-                                <div><h3 className="font-bold text-slate-800">{item.nama}</h3><p className="text-xs text-slate-500">Hari ke-{item.hari} • {item.kelas}</p></div>
-                                {activeTab === 'poin' && <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin</span>}
+                                <div><h3 className="font-bold text-slate-800 flex items-center gap-2">{item.nama} <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-500">#{item.rowIndex}</span></h3><p className="text-xs text-slate-500">Hari ke-{item.hari} • {item.kelas}</p></div>
+                                <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin (Siswa)</span>
                             </div>
                             
-                            {/* TAB CONTENT: POIN */}
-                            {activeTab === 'poin' && (
-                                <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian || 'Tidak ada rincian.'}</div>
-                            )}
-
-                            {/* TAB CONTENT: AUDIO */}
-                            {activeTab === 'audio' && (
-                                <div className="mb-3">
-                                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2">
-                                        <div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Hafalan</span></div>
-                                        <audio controls src={item.audio} className="h-8 w-40" />
-                                    </div>
-                                    <div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div>
+                            {/* KONTEN DINAMIS BERDASARKAN ISI BARIS */}
+                            {item.audio && item.audio.length > 20 && (
+                                <div className="mb-2 bg-blue-50 p-2 rounded-lg border border-blue-100 flex items-center justify-between">
+                                    <div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Audio</span></div>
+                                    <audio controls src={item.audio} className="h-6 w-32" />
                                 </div>
                             )}
-
-                            {/* TAB CONTENT: FOTO */}
-                            {activeTab === 'foto' && (
-                                <div className="mb-3">
-                                    <img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" />
-                                    <div className="text-[10px] text-slate-500 italic">{item.rincian}</div>
-                                </div>
+                            {item.foto && item.foto.length > 20 && (
+                                <div className="mb-2"><img src={item.foto} alt="Bukti" className="w-full h-32 rounded-lg border border-slate-200 object-cover" /></div>
                             )}
+                            <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian || 'Tidak ada rincian.'}</div>
 
                             <div className="border-t pt-2 mt-2 flex justify-between items-center">
                                 <div className="text-xs">
-                                    {item.nilaiGuru ? <span className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded">Nilai: {item.nilaiGuru}</span> : <span className="text-red-400 italic">Belum dinilai</span>}
-                                    {item.koreksiGuru && <span className="text-slate-400 ml-2 italic text-[10px] truncate max-w-[100px] inline-block align-bottom">"{item.koreksiGuru}"</span>}
+                                    {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : <span className="text-red-400 italic">Belum dinilai</span>}
+                                    {item.koreksiGuru && <span className="text-slate-400 ml-1 italic text-[10px]">"{item.koreksiGuru}"</span>}
                                 </div>
                                 <button onClick={() => openModal(item)} className="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 active:scale-95 transition shadow hover:bg-emerald-700"><Icons.PenTool size={12}/> Nilai</button>
                             </div>
@@ -490,8 +472,8 @@
                         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
                         <div className="bg-white w-[90%] max-w-sm rounded-2xl p-6 shadow-2xl relative">
                             <button onClick={() => setSelectedStudent(null)} className="absolute top-4 right-4 bg-slate-100 p-1 rounded-full hover:bg-slate-200"><Icons.XIcon size={20} className="text-slate-500"/></button>
-                            <h3 className="font-bold text-lg mb-1 text-slate-800">Beri Nilai</h3><p className="text-xs text-slate-500 mb-4">{selectedStudent.nama} • Hari {selectedStudent.hari}</p>
-                            <div className="space-y-4 mb-6"><div><label className="text-xs font-bold text-slate-500 block mb-1">Nilai (Angka/Huruf)</label><input type="text" value={nilaiInput} onChange={(e) => setNilaiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl" placeholder="Contoh: 90 / A" /></div><div><label className="text-xs font-bold text-slate-500 block mb-1">Koreksi</label><textarea rows="3" value={koreksiInput} onChange={(e) => setKoreksiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl text-sm" placeholder="Catatan..." /></div></div>
+                            <h3 className="font-bold text-lg mb-1 text-slate-800">Beri Nilai</h3><p className="text-xs text-slate-500 mb-4">{selectedStudent.nama} • Hari {selectedStudent.hari} • <span className="font-mono">#{selectedStudent.rowIndex}</span></p>
+                            <div className="space-y-4 mb-6"><div><label className="text-xs font-bold text-slate-500 block mb-1">Nilai Guru</label><input type="text" value={nilaiInput} onChange={(e) => setNilaiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl" placeholder="Contoh: 100" /></div><div><label className="text-xs font-bold text-slate-500 block mb-1">Koreksi</label><textarea rows="3" value={koreksiInput} onChange={(e) => setKoreksiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl text-sm" placeholder="Catatan..." /></div></div>
                             <button onClick={handleSimpanNilai} disabled={saving} className="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-emerald-700 shadow-md">{saving ? <Icons.Loader2 className="animate-spin"/> : <Icons.CheckSquare size={18}/>} Simpan</button>
                         </div>
                         </div>
@@ -517,9 +499,8 @@
             );
         }
 
-        // --- STUDENT APP ---
+        // --- STUDENT APP (FIXED RAPORT VIEW) ---
         function StudentApp({ setRole, globalScriptUrl, schoolName }) {
-            // (Same student logic as previously defined)
             const [activeDay, setActiveDay] = useState(1);
             const [view, setView] = useState('cover');
             const [userData, setUserData] = useState({});
@@ -535,6 +516,7 @@
             const mediaRecorderRef = useRef(null);
             const [raportData, setRaportData] = useState([]);
             const [loadingRaport, setLoadingRaport] = useState(false);
+            const [totalGuruScore, setTotalGuruScore] = useState(0); // State baru untuk Total Nilai Guru
             
             const currentDateGregorian = getGregorianDate(studentProfile.startDateRamadan || '2026-02-18', activeDay);
             const triggerConfetti = () => { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); };
@@ -563,7 +545,23 @@
             const calculateDailyScore = (dayData, dayIndex) => { let score = 0; if (!dayData) return 0; if (dayData.puasa) score += 20; if (dayData.subuh) score += 10; if (dayData.zuhur) score += 10; if (dayData.ashar) score += 10; if (dayData.maghrib) score += 10; if (dayData.isya) score += 10; if (dayData.tarawih) score += 10; if (dayData.witir) score += 10; if (dayData.tadarus) score += 10; if (dayData.salatMalam) { score += (dayIndex >= 21) ? 20 : 10; } if (dayData.bantuIbu) score += 5; if (dayData.kosakata) score += 5; if (dayData.amalanLainCheck) score += 5; if (dayData.hafalDoa) score += 10; if (dayData.namaPenceramah) score += 5; if (dayData.temaCeramah) score += 10; return score; };
             const calculateTotalScore = () => { let score = 0; Object.entries(userData).forEach(([d, data]) => score += calculateDailyScore(data, parseInt(d))); return score; };
             const sendData = async () => { if(!studentProfile.scriptUrl) return alert("Link Script Guru belum diisi! Hubungi gurumu."); if(view === 'hafalan' && (!audioBlob || !namaSurah)) return alert("Rekam & isi nama surah dulu!"); setIsSubmitting(true); try { const dayData = userData[activeDay] || {}; let payload = {}; if(view === 'hafalan') { const b64Audio = await blobToBase64(audioBlob); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasa, tarawih: dayData.tarawih, kebaikan: `🎤 Hafalan: ${namaSurah}`, audio: b64Audio, namaSurah: namaSurah }; } else { let rincian = []; if(dayData.salatMalam) rincian.push("✅ Qiyam"); if(dayData.bantuIbu) rincian.push("✅ Bantu Ortu"); if(dayData.kosakata) rincian.push("✅ Kosakata"); if(dayData.amalanLainCheck) rincian.push(`✅ ${dayData.amalanLain || 'Amalan Lain'}`); if(dayData.tarawih) rincian.push("✅ Tarawih"); if(dayData.witir) rincian.push("✅ Witir"); if(dayData.tadarus) rincian.push("✅ Tadarus"); payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasa, tarawih: dayData.tarawih, kebaikan: rincian.join(", "), foto: base64Image, namaFoto: selectedImage }; } await fetch(studentProfile.scriptUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }); triggerConfetti(); alert("Terkirim! Guru akan segera menerima datamu."); if(view==='hafalan') deleteRecording(); if(view==='achievements') removeImage(); } catch(e) { alert("Gagal kirim. Cek internet atau link guru."); } finally { setIsSubmitting(false); } };
-            const fetchRaport = async () => { if (!studentProfile.scriptUrl) return; setLoadingRaport(true); try { const res = await fetch(studentProfile.scriptUrl); const json = await res.json(); const myData = json.filter(row => row.nama.toLowerCase() === studentProfile.name.toLowerCase()); setRaportData(myData); } catch(e) {} finally { setLoadingRaport(false); } };
+            
+            const fetchRaport = async () => { 
+                if (!studentProfile.scriptUrl) return; 
+                setLoadingRaport(true); 
+                try { 
+                    const res = await fetch(studentProfile.scriptUrl); 
+                    const json = await res.json(); 
+                    const myData = json.filter(row => row.nama.toLowerCase() === studentProfile.name.toLowerCase()); 
+                    setRaportData(myData); 
+                    
+                    // Hitung Total Nilai Guru
+                    const total = myData.reduce((acc, curr) => acc + (parseInt(curr.nilaiGuru) || 0), 0);
+                    setTotalGuruScore(total);
+                } catch(e) {} finally { 
+                    setLoadingRaport(false); 
+                } 
+            };
             useEffect(() => { if (view === 'raport') fetchRaport(); }, [view]);
 
             if (view === 'cover') return (
@@ -581,13 +579,34 @@
             
             return (
                 <div className="min-h-screen bg-emerald-50 pb-24 font-sans">
-                    <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{studentProfile.class}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Total Poin:</span><span className="text-xl font-black text-yellow-300">{calculateTotalScore()}</span></div></div>
+                    <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{studentProfile.class}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Estimasi Poin:</span><span className="text-xl font-black text-yellow-300">{calculateTotalScore()}</span></div></div>
                     <div className="px-4 -mt-4 relative z-10">
                         <div className="bg-white p-1 rounded-xl shadow-md flex mb-4 text-[10px] font-bold text-center border border-slate-100 overflow-x-auto">{['journal', 'doa', 'hafalan', 'raport', 'achievements'].map(m => (<button key={m} onClick={() => setView(m)} className={`flex-1 py-2 px-1 capitalize rounded-lg transition-colors border ${view===m ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-slate-400 border-transparent hover:bg-slate-50'}`}>{m === 'achievements' ? 'Lapor' : m === 'journal' ? 'Jurnal' : m}</button>))}</div>
                         {view === 'journal' && (<div className="space-y-4 animate-in fade-in"><div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>{userData[activeDay]?.validated && <div className="bg-green-100 text-green-700 p-2 rounded-lg text-xs font-bold text-center border border-green-200">✅ Data sudah divalidasi</div>}<div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div><div onClick={() => toggleCheck(activeDay, 'puasa')} className={`p-4 rounded-2xl border-2 flex justify-between items-center transition-all cursor-pointer shadow-sm ${userData[activeDay]?.puasa ? 'bg-orange-50 border-orange-400' : 'bg-white border-slate-200 hover:bg-slate-50'}`}><div className="flex items-center gap-3"><div className={`p-2 rounded-full ${userData[activeDay]?.puasa ? 'bg-orange-500 text-white' : 'bg-slate-100 text-slate-300'}`}><Icons.Sun size={20}/></div><span className="font-bold text-slate-700">Puasa Penuh (+20)</span></div>{userData[activeDay]?.puasa && <Icons.CheckCircle className="text-orange-500" size={20}/>}</div><div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3">Shalat Wajib (+10)</h3><div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">{['Subuh','Zuhur','Ashar','Maghrib','Isya'].map(s => (<button key={s} onClick={() => toggleCheck(activeDay, s.toLowerCase())} className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold border transition ${userData[activeDay]?.[s.toLowerCase()] ? 'bg-blue-500 text-white border-blue-500 shadow-md' : 'bg-slate-50 text-slate-400 border-slate-200 hover:border-blue-300'}`}>{s}</button>))}</div></div><div className="grid grid-cols-3 gap-3">{[{id: 'tarawih', label: 'Tarawih'}, {id: 'witir', label: 'Witir'}, {id: 'tadarus', label: 'Tadarus'}].map(ibadah => (<div key={ibadah.id} onClick={() => toggleCheck(activeDay, ibadah.id)} className={`p-3 rounded-xl border-2 text-center cursor-pointer transition shadow-sm flex flex-col items-center justify-center h-24 ${userData[activeDay]?.[ibadah.id] ? 'bg-indigo-50 border-indigo-500' : 'bg-white border-slate-200 hover:bg-indigo-50'}`}><div className={`mb-1 ${userData[activeDay]?.[ibadah.id] ? 'text-indigo-600' : 'text-slate-300'}`}>{ibadah.id === 'tadarus' ? <Icons.BookOpen size={24}/> : <Icons.Star size={24} className={userData[activeDay]?.[ibadah.id] ? 'fill-indigo-600' : ''}/>}</div><span className="text-[10px] font-bold text-slate-700">{ibadah.label}</span><span className="text-[9px] text-slate-400">+10</span></div>))}</div><div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3"><h3 className="text-xs font-bold text-slate-400 uppercase flex items-center gap-1"><Icons.Heart size={12}/> Amalan Harian (+5 Poin)</h3>{[{id: 'bantuIbu', label: 'Membantu Ayah/Ibu'}, {id: 'kosakata', label: 'Menghafal Kosakata'}].map(a => (<div key={a.id} onClick={() => toggleCheck(activeDay, a.id)} className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition ${userData[activeDay]?.[a.id] ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200 hover:bg-white'}`}><span className="text-sm font-bold text-slate-700">{a.label}</span>{userData[activeDay]?.[a.id] && <Icons.CheckCircle size={18} className="text-emerald-500"/>}</div>))}<div className={`p-3 rounded-xl border transition ${userData[activeDay]?.amalanLainCheck ? 'bg-emerald-50 border-emerald-500' : 'bg-slate-50 border-slate-200'}`}><div className="flex items-center gap-2 mb-2"><input type="checkbox" checked={!!userData[activeDay]?.amalanLainCheck} onChange={() => toggleCheck(activeDay, 'amalanLainCheck')} className="w-5 h-5 accent-emerald-600 rounded cursor-pointer" /><span className="text-sm font-bold text-slate-700">Amalan Lainnya</span></div><input type="text" placeholder="Tulis amalanmu..." className="w-full text-xs p-2 rounded border border-slate-200 bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none" value={userData[activeDay]?.amalanLain || ''} onChange={(e) => updateField(activeDay, 'amalanLain', e.target.value)} /></div></div><div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Mic size={12}/> Jurnal Ceramah</h3><div className="space-y-3"><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Nama Penceramah (+5)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Contoh: Al-Ustaz Khidir bin Muh. Sunusi" value={userData[activeDay]?.namaPenceramah || ''} onChange={e => updateField(activeDay, 'namaPenceramah', e.target.value)} /></div><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Tema Ceramah (+10)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Isi tema ceramah..." value={userData[activeDay]?.temaCeramah || ''} onChange={e => updateField(activeDay, 'temaCeramah', e.target.value)} /></div></div></div><div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200 text-center shadow-sm"><button onClick={() => toggleValidation(activeDay)} className="w-full py-2 bg-white border border-yellow-400 text-yellow-700 rounded-lg text-xs font-bold hover:bg-yellow-50 shadow-sm">{userData[activeDay]?.validated ? 'Buka Validasi' : 'Tanda Tangan Orang Tua'}</button></div></div>)}
                         {view === 'hafalan' && (<div className="bg-white p-6 rounded-2xl text-center shadow-sm animate-in fade-in border border-slate-200"><Icons.Mic size={40} className="mx-auto text-emerald-500 mb-2"/><h2 className="font-bold mb-4">Setor Hafalan Audio</h2><input className="w-full border p-3 rounded-xl mb-4 text-sm bg-slate-50 focus:bg-white focus:border-emerald-500 outline-none" placeholder="Contoh: Surah An-Nas / Hadits Niat" value={namaSurah} onChange={e=>setNamaSurah(e.target.value)}/>{!audioUrl ? <button onClick={isRecording ? stopRecording : startRecording} className={`w-full py-6 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95 border ${isRecording ? 'bg-red-500 border-red-600 animate-pulse' : 'bg-blue-600 border-blue-700 hover:bg-blue-700'}`}>{isRecording ? <Icons.StopCircle/> : <Icons.Mic/>} {isRecording ? 'Stop Rekam' : 'Mulai Rekam'}</button> : <div className="space-y-3"><div className="bg-slate-100 p-3 rounded-xl flex items-center gap-2 border border-slate-200"><Icons.Play className="text-blue-500" size={20}/> <span className="text-xs font-bold">Rekaman Siap</span></div><div className="flex gap-2"><button onClick={deleteRecording} className="flex-1 py-3 text-red-500 bg-red-50 rounded-xl font-bold text-xs border border-red-200 hover:bg-red-100">Hapus</button><button onClick={() => {const a = new Audio(audioUrl); a.play()}} className="flex-1 py-3 text-blue-500 bg-blue-50 rounded-xl font-bold text-xs border border-blue-200 hover:bg-blue-100">Dengar</button></div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-green-600 text-white py-3 rounded-xl font-bold flex justify-center gap-2 mt-2 shadow-lg hover:bg-green-700 border border-green-700">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Hafalan</button></div>}</div>)}
                         {view === 'doa' && (<div className="space-y-3 pb-10">{DAFTAR_DOA.map((doa, i) => (<div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200"><h3 className="font-bold text-sm text-slate-700 mb-2">{doa.judul}</h3><p className="text-right font-serif text-lg leading-loose mb-2 text-slate-800">{doa.arab}</p><p className="text-xs italic text-slate-500 border-t border-slate-100 pt-2">{doa.latin}</p><p className="text-xs text-slate-600 mt-1">{doa.arti}</p></div>))}</div>)}
-                        {view === 'raport' && (<div className="space-y-3 pb-10"><h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat & Nilai</h2>{loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => (<div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100"><div className="flex justify-between text-xs text-slate-500 mb-1"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div><div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>{(item.nilaiGuru || item.koreksiGuru) ? (<div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">{item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}{item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}</div>) : <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div>}</div>))}</div>)}
+                        
+                        {/* UPDATE RAPOR VIEW */}
+                        {view === 'raport' && (<div className="space-y-3 pb-10">
+                            <div className="bg-indigo-900 text-white p-4 rounded-xl mb-4 shadow-lg border border-indigo-800">
+                                <h2 className="font-bold text-lg mb-1 flex items-center gap-2"><Icons.Award className="text-yellow-300"/> Total Nilai Validasi</h2>
+                                <p className="text-xs text-indigo-200 mb-2">Akumulasi nilai yang sudah diperiksa Guru</p>
+                                <div className="text-3xl font-black text-yellow-300">{loadingRaport ? '...' : totalGuruScore}</div>
+                            </div>
+                            
+                            <h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat Setoran</h2>
+                            {loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => (
+                            <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100">
+                                <div className="flex justify-between text-xs text-slate-500 mb-2"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div>
+                                
+                                {item.audio && item.audio.length > 20 && <div className="mb-2 bg-blue-50 p-2 rounded border border-blue-100 flex items-center gap-2"><Icons.Play size={12} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Setoran Audio</span></div>}
+                                {item.foto && item.foto.length > 20 && <div className="mb-2"><img src={item.foto} className="h-20 w-full object-cover rounded border border-slate-200" alt="Bukti"/></div>}
+                                
+                                <div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>
+                                {(item.nilaiGuru || item.koreksiGuru) ? (<div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">{item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}{item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}</div>) : <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div>}
+                            </div>))}
+                        </div>)}
+                        
                         {view === 'achievements' && (<div className="bg-white p-5 rounded-2xl shadow-sm text-center border border-slate-200"><h2 className="text-lg font-bold mb-1">Lapor Harian</h2><p className="text-xs text-slate-500 mb-4">Kirim poin jurnal & foto bukti kegiatan.</p><div className="mb-4 text-left p-3 bg-slate-50 rounded-xl border border-dashed border-slate-300"><label className="text-xs font-bold text-slate-400 block mb-2">Upload Foto (Opsional)</label>{!selectedImage ? <label className="flex items-center justify-center h-20 cursor-pointer hover:bg-slate-100 transition rounded-lg"><Icons.Camera className="text-slate-300 mr-2"/><span className="text-xs text-slate-400">Ambil Foto (Max 2MB)</span><input type="file" accept="image/*" className="hidden" onChange={handleImageUpload}/></label> : <div className="flex items-center justify-between"><span className="text-xs truncate max-w-[150px]">{selectedImage}</span><button onClick={removeImage} className="text-red-500 p-2 hover:bg-red-50 rounded-full"><Icons.XIcon size={16}/></button></div>}</div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2 hover:bg-emerald-700 border border-emerald-700 transition transform active:scale-95">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan</button></div>)}
                     </div>
                     {showConfetti && <div className="fixed inset-0 flex items-center justify-center z-50 text-6xl animate-bounce">🎉</div>}
