@@ -103,56 +103,19 @@
             List: (p) => <Icon name="List" {...p} />
         };
 
-        // --- DZIKIR PAGI & PETANG (HISNUL MUSLIM) ---
-        // Placeholder sementara menunggu Anda paste text lengkap
+        // --- DZIKIR: ARAHAN BUKU ---
         const DAFTAR_DZIKIR = [
             { 
-                judul: "1. Ayat Kursi (Pagi & Petang)", 
-                arab: "اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ", 
-                latin: "Allahu laa ilaaha illa huwal hayyul qayyum...", 
-                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)... (Dibaca 1x)" 
+                judul: "📖 Panduan Dzikir Pagi & Petang", 
+                arab: "Silakan buka Buku Dzikir yang telah dibagikan", 
+                latin: "Untuk teks lengkap, mohon merujuk pada buku saku Hisnul Muslim / Dzikir Pagi Petang yang telah dibagikan oleh sekolah.", 
+                arti: "Aplikasi ini berfungsi sebagai pengingat. Membaca melalui buku fisik lebih utama, lebih jelas, dan lebih khusyuk." 
             },
             { 
-                judul: "2. Tiga Qul (Al-Ikhlas, Al-Falaq, An-Nas)", 
-                arab: "بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيْمِ . قُلْ هُوَ اللَّهُ أَحَدٌ ...", 
-                latin: "Qul huwallahu ahad... (dan seterusnya)", 
-                arti: "Masing-masing surah dibaca 3 kali. 'Barangsiapa membacanya 3x di pagi dan petang, maka akan dicukupkan dari segala sesuatu.'" 
-            },
-            { 
-                judul: "3. Sayyidul Istighfar", 
-                arab: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", 
-                latin: "Allahumma anta rabbii laa ilaaha illa anta khalaqtanii wa anaa 'abduka...", 
-                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada Tuhan selain Engkau. Engkau telah menciptakanku dan aku adalah hamba-Mu..." 
-            },
-            { 
-                judul: "4. Doa Perlindungan (3x)", 
-                arab: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
-                latin: "Bismillahilladzi laa yadhurru ma'asmihi syai-un fil ardhi wa laa fis samaa' wa huwas samii'ul 'aliim.", 
-                arti: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya, Dialah Yang Maha Mendengar lagi Maha Mengetahui." 
-            },
-            { 
-                judul: "5. Doa Ridho (3x)", 
-                arab: "رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
-                latin: "Radhiitu billahi rabba, wa bil islaami diina, wa bi Muhammadin shallallahu 'alaihi wa sallama nabiyya.", 
-                arti: "Aku ridho Allah sebagai Rabb, Islam sebagai agama, dan Muhammad shallallahu 'alaihi wa sallam sebagai Nabi." 
-            },
-            { 
-                judul: "6. Dzikir Pagi", 
-                arab: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...", 
-                latin: "Ashbahna wa ashbahal mulku lillahi...", 
-                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah..." 
-            },
-            { 
-                judul: "7. Dzikir Sore", 
-                arab: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ...", 
-                latin: "Amsaynaa wa amsaynal mulku lillah...", 
-                arti: "Kami telah memasuki waktu sore dan kerajaan hanya milik Allah..." 
-            },
-            { 
-                judul: "8. Tasbih & Tahmid (100x)", 
-                arab: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", 
-                latin: "Subhanallahi wa bihamdih.", 
-                arti: "Maha Suci Allah dan segala puji bagi-Nya. (Dibaca 100x)" 
+                judul: "Urutan Dzikir", 
+                arab: "١. آية الكرسي ... ٢. المعوذات ...", 
+                latin: "1. Ayat Kursi, 2. Al-Ikhlas, Al-Falaq, An-Nas (3x), 3. Sayyidul Istighfar, dst.", 
+                arti: "Ikuti urutan yang tertera di dalam buku saku Anda." 
             }
         ];
 
@@ -342,7 +305,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Secure 4.0</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 5.0 (Instruksi Dzikir)</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -377,7 +340,7 @@
                                     </button>
 
                                     <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                                        <h3 className="font-bold text-sm text-slate-700 flex items-center gap-2"><Icons.Settings size={16}/> Pengaturan</h3>
+                                        <h3 className="font-bold text-sm text-slate-700 flex items-center gap-2"><Icons.Settings size={16}/> Pengaturan Aplikasi</h3>
                                         <div><label className="text-[10px] font-bold text-slate-500 block mb-1">Nama Sekolah</label><input type="text" value={tempSchoolName} onChange={e => setTempSchoolName(e.target.value)} className="w-full p-2 border rounded-lg text-sm bg-white" /></div>
                                         <div><label className="text-[10px] font-bold text-slate-500 block mb-1">Link Script Google Apps</label><input type="text" value={tempScriptUrl} onChange={e => setTempScriptUrl(e.target.value)} className="w-full p-2 border rounded-lg text-xs font-mono bg-white text-slate-600" /></div>
                                         <div className="pt-2 border-t border-slate-200"><label className="text-[10px] font-bold text-red-500 block mb-1">Ganti PIN Guru</label><input type="text" value={tempPin} onChange={e => setTempPin(e.target.value)} className="w-full p-2 border border-red-200 rounded-lg text-sm bg-red-50 text-center font-bold tracking-widest text-red-800" /></div>
@@ -436,6 +399,7 @@
 
             const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
 
+            // MAGIC LINK V3: FULL AUTO (URL + School Name)
             const copyStudentLink = () => {
                 if (!scriptUrl) { alert("Link Script kosong!"); return; }
                 const isLocal = window.location.protocol === 'file:';
@@ -444,7 +408,7 @@
                 const baseUrl = window.location.href.split('?')[0];
                 const magicLink = `${baseUrl}?guru=${encodeURIComponent(scriptUrl)}&school=${encodeURIComponent(schoolName)}`;
                 
-                if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => alert("✨ Link Ajaib Tersalin!\n\nLink ini sudah berisi: \n1. Koneksi Database\n2. Nama Sekolah ("+schoolName+")\n\nMurid tinggal klik & pakai!")).catch(() => prompt("Salin manual:", magicLink)); } else { prompt("Salin link:", magicLink); }
+                if (navigator.clipboard) { navigator.clipboard.writeText(magicLink).then(() => alert("✨ Link Ajaib Tersalin!\n\nLink ini sudah berisi: \n1. Koneksi Database\n2. Nama Sekolah ("+schoolName+")\n\nMurid tinggal klik dan pakai!")).catch(() => prompt("Salin manual:", magicLink)); } else { prompt("Salin link:", magicLink); }
             };
 
             const getFilteredData = () => {
@@ -545,14 +509,13 @@
             useEffect(() => { if (Object.keys(userData).length > 0) localStorage.setItem('ramadanJournalData', JSON.stringify(userData)); }, [userData]);
             useEffect(() => { localStorage.setItem('ramadanProfile', JSON.stringify(studentProfile)); }, [studentProfile]);
 
-            // FIX: UPDATED FIELD LOGIC (NAME OF PREACHER ETC)
+            // FIX: UPDATED FIELD LOGIC
             const updateField = (day, field, value) => { 
                 setUserData(prev => {
                     const dayData = prev[day] || {};
                     return { ...prev, [day]: { ...dayData, [field]: value } };
                 });
             };
-            
             const toggleCheck = (day, field) => { 
                 if (userData[day]?.validated) return; 
                 setUserData(prev => {
@@ -582,13 +545,12 @@
                 if (dayData.tarawih) score += 10; if (dayData.witir) score += 10; if (dayData.tadarus) score += 10; if (dayData.salatMalam) { score += (dayIndex >= 21) ? 20 : 10; } if (dayData.bantuIbu) score += 5; if (dayData.kosakata) score += 5; if (dayData.amalanLainCheck) score += 5; if (dayData.hafalDoa) score += 10; if (dayData.namaPenceramah) score += 5; if (dayData.temaCeramah) score += 10; return score; 
             };
             
-            // Total Poin Jurnal (Lokal)
             const calculateTotalLocalScore = () => { let score = 0; Object.entries(userData).forEach(([d, data]) => score += calculateDailyScore(data, parseInt(d))); return score; };
             
-            // TOTAL POIN CERDAS: (Poin Jurnal Murid) + (Poin Hafalan/Foto dari Guru)
+            // SMART TOTAL: LOCAL POINTS + TEACHER GRADES (FROM HAFALAN & PHOTO)
             const getDisplayScore = () => {
                 const localScore = calculateTotalLocalScore();
-                // Ambil nilai guru khusus untuk baris yang ada Audio atau Foto
+                // Teacher scores are ONLY from Hafalan/Foto rows in raportData
                 const teacherScore = raportData.reduce((acc, curr) => {
                     const isMedia = (curr.audio && curr.audio.length > 50) || (curr.foto && curr.foto.length > 50);
                     return isMedia ? acc + (parseInt(curr.nilaiGuru) || 0) : acc;
