@@ -103,50 +103,80 @@
             List: (p) => <Icon name="List" {...p} />
         };
 
-        // --- DATABASE DOA LENGKAP (HISNUL MUSLIM) ---
-        const DAFTAR_DOA = [
-            { judul: "1. Zikir Ketika Bangun Tidur", arab: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ", latin: "Alhamdu lillahil-ladzi ahyana ba'da ma amatana wa ilaihin-nushur.", arti: "Segala puji bagi Allah yang menghidupkan kami kembali setelah mematikan kami dan kepada-Nya (kami) akan dibangkitkan." },
-            { judul: "2. Doa Memakai Pakaian", arab: "الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا (الثَّوْبَ) وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", latin: "Alhamdulillahilladzi kasaani hadza (ats-tsauba) wa razaqanihi min ghairi haulin minni wa laa quwwatin.", arti: "Segala puji bagi Allah yang telah memakaikan pakaian ini kepadaku dan mengaruniakannya kepadaku tanpa daya dan kekuatan dariku." },
-            { judul: "3. Doa Untuk Orang Memakai Baju Baru", arab: "تُبْلِي وَيُخْلِفُ اللَّهُ تَعَالَى", latin: "Tubli wa yukhliful-lahu ta'ala.", arti: "Kenakanlah sampai lusuh, semoga Allah Ta'ala memberikan gantinya kepadamu." },
-            { judul: "4. Doa Menanggalkan Pakaian", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
-            { judul: "5. Doa Masuk WC", arab: "(بِسْمِ اللهِ) اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ", latin: "(Bismillah) Allahumma inni a'udzu bika minal khubutsi wal khaba-its.", arti: "(Dengan nama Allah). Ya Allah, sesungguhnya aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan." },
-            { judul: "6. Doa Keluar WC", arab: "غُفْرَانَكَ", latin: "Ghufranaka.", arti: "Aku memohon ampunan-Mu." },
-            { judul: "7. Zikir Sebelum Berwudu", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
-            { judul: "8. Zikir Setelah Berwudu", arab: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ", latin: "Asyhadu alla ilaha illallah wahdahu la syarika lahu wa asyhadu anna Muhammadan 'abduhu wa rasuluh.", arti: "Aku bersaksi bahwa tidak ada Tuhan yang berhak disembah selain Allah semata, tidak ada sekutu bagi-Nya. Dan aku bersaksi bahwa Muhammad adalah hamba dan utusan-Nya." },
-            { judul: "9. Zikir Keluar Rumah", arab: "بِسْمِ اللهِ ، تَوَكَّلْتُ عَلَى اللهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ", latin: "Bismillahi, tawakkaltu 'alallahi, wa laa haula wa laa quwwata illa billah.", arti: "Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan Allah." },
-            { judul: "10. Zikir Masuk Rumah", arab: "بِسْمِ اللهِ وَلَجْنَا، وَبِسْمِ اللهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا", latin: "Bismillahi walajnaa, wa bismillahi kharajnaa, wa 'alaa rabbinaa tawakkalnaa.", arti: "Dengan nama Allah kami masuk, dan dengan nama Allah kami keluar, dan kepada Tuhan kami, kami bertawakkal." },
-            { judul: "11. Doa Pergi ke Masjid", arab: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا ، وَفِي لِسَانِي نُورًا ، وَفِي سَمْعِي نُورًا ، وَفِي بَصَرِي نُورًا", latin: "Allahummaj'al fii qalbii nuura, wa fii lisaanii nuura, wa fii sam'ii nuura, wa fii basharii nuura...", arti: "Ya Allah, jadikanlah cahaya di hatiku, cahaya di lisanku, cahaya di pendengaranku, dan cahaya di penglihatanku..." },
-            { judul: "12. Doa Masuk Masjid", arab: "بِسْمِ اللهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ", latin: "Bismillah, wash-shalaatu was-salaamu 'ala rasuulillah. Allahummaftah lii abwaaba rahmatik.", arti: "Dengan nama Allah, shalawat dan salam atas Rasulullah. Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu." },
-            { judul: "13. Doa Setelah Azan", arab: "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ ، وَالصَّلَاةِ الْقَائِمَةِ ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ ، وَابْعَثْهُ مَقَامًا مَحْمُودًا الَّذِي وَعَدْتَهُ", latin: "Allahumma rabba hadzihid da'watit tammah, wash-shalaatil qa-imah, aati Muhammadanil wasilata wal fadhilah, wab'atshu maqamam mahmudal ladzi wa'adtah.", arti: "Ya Allah, Tuhan pemilik panggilan yang sempurna ini dan shalat yang akan didirikan. Berikanlah kepada Muhammad wasilah dan keutamaan, dan bangkitkanlah ia di tempat yang terpuji yang telah Engkau janjikan kepadanya." },
-            { judul: "14. Doa Istiftah", arab: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ ، وَتَبَارَكَ اسْمُكَ ، وَتَعَالَى جَدُّكَ ، وَلَا إِلَهَ غَيْرُكَ", latin: "Subhanakallahumma wa bihamdika, wa tabarakasmuka, wa ta'ala jadduka, wa laa ilaha ghairuk.", arti: "Maha Suci Engkau Ya Allah, aku memuji-Mu. Maha Berkah nama-Mu. Maha Tinggi kekayaan dan kebesaran-Mu, dan tiada Tuhan yang berhak disembah selain Engkau." },
-            { judul: "15. Doa Ruku'", arab: "سُبْحَانَ رَبِّيَ الْعَظِيمِ", latin: "Subhaana rabbiyal 'azhiim. (3x)", arti: "Maha Suci Tuhanku Yang Maha Agung." },
-            { judul: "16. Doa Bangkit dari Ruku'", arab: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ ... رَبَّنَا وَلَكَ الْحَمْدُ", latin: "Sami'allahu liman hamidah... Rabbana wa lakal hamd.", arti: "Allah mendengar orang yang memuji-Nya... Ya Tuhan kami, bagi-Mu segala puji." },
-            { judul: "17. Doa Sujud", arab: "سُبْحَانَ رَبِّيَ الْأَعْلَى", latin: "Subhaana rabbiyal a'la. (3x)", arti: "Maha Suci Tuhanku Yang Maha Tinggi." },
-            { judul: "18. Doa Duduk Antara Dua Sujud", arab: "رَبِّ اغْفِرْ لِي ، رَبِّ اغْفِرْ لِي", latin: "Rabbighfirlii, Rabbighfirlii.", arti: "Ya Tuhanku ampunilah aku, Ya Tuhanku ampunilah aku." },
-            { judul: "19. Doa Sujud Tilawah", arab: "سَجَدَ وَجْهِيَ لِلَّذِي خَلَقَهُ، وَشَقَّ سَمْعَهُ وَبَصَرَهُ، بِحَوْلِهِ وَقُوَّتِهِ، فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ", latin: "Sajada wajhiya lilladzi khalaqahu, wa syaqqa sam'ahu wa basharahu, bihaulihi wa quwwatihi, fatabarakallahu ahsanul khaliqin.", arti: "Wajahku bersujud kepada Dzat yang menciptakannya, yang membuka pendengaran dan penglihatannya dengan daya dan kekuatan-Nya. Maha Suci Allah, sebaik-baik Pencipta." },
-            { judul: "20. Bacaan Tasyahud", arab: "التَّحِيَّاتُ لِلَّهِ، وَالصَّلَوَاتُ، وَالطَّيِّبَاتُ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ...", latin: "Attahiyyatu lillah wash-shalawatu wath-thayyibat. Assalamu 'alaika ayyuhan nabiyyu wa rahmatullahi wa barakatuh...", arti: "Segala penghormatan, shalawat, dan kebaikan hanya milik Allah. Semoga salam sejahtera tercurah kepadamu wahai Nabi, beserta rahmat Allah dan berkah-Nya..." },
-            { judul: "21. Shalawat Nabi (Tasyahud Akhir)", arab: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ...", latin: "Allahumma shalli 'ala Muhammad wa 'ala aali Muhammad, kamaa shallaita 'ala Ibrahim wa 'ala aali Ibrahim, innaka Hamidum Majid...", arti: "Ya Allah, berilah rahmat kepada Muhammad dan keluarga Muhammad, sebagaimana Engkau telah memberi rahmat kepada Ibrahim dan keluarga Ibrahim..." },
-            { judul: "22. Doa Sebelum Salam", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ", latin: "Allahumma inni a'udzu bika min 'adzabil qabri, wa min 'adzabi jahannam, wa min fitnatil mahyaa wal mamaat, wa min syarri fitnatil masiihid dajjal.", arti: "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari siksa kubur, dari siksa neraka Jahannam, dari fitnah kehidupan dan kematian, dan dari kejahatan fitnah Al-Masih Ad-Dajjal." },
-            { judul: "23. Doa Qunut Witir", arab: "اللَّهُمَّ اهْدِنِي فِيمَنْ هَدَيْتَ ، وَعَافِنِي فِيمَنْ عَافَيْتَ ، وَتَوَلَّنِي فِيمَنْ تَوَلَّيْتَ...", latin: "Allahummahdinii fiiman hadait, wa 'aafinii fiiman 'aafait, wa tawallanii fiiman tawallait...", arti: "Ya Allah, berilah aku petunjuk sebagaimana orang-orang yang telah Engkau beri petunjuk, berilah aku keselamatan..." },
-            { judul: "24. Zikir Setelah Witir", arab: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ", latin: "Subhanal malikil quddus. (3x)", arti: "Maha Suci Allah Raja Yang Maha Suci." },
-            { judul: "25. Doa Ditimpa Kesusahan", arab: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ...", latin: "Laa ilaha illallahul 'azhimul halim, laa ilaha illallahu rabbul 'arsyil 'azhim...", arti: "Tiada Tuhan yang berhak disembah selain Allah Yang Maha Agung lagi Maha Santun..." },
-            { judul: "26. Doa Menghadapi Kesulitan", arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا، وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا", latin: "Allahumma laa sahla illa maa ja'altahu sahlaa, wa anta taj'alul hazna idza syi'ta sahlaa.", arti: "Ya Allah, tidak ada kemudahan kecuali yang Engkau jadikan mudah. Dan Engkau menjadikan kesedihan (kesulitan) jika Engkau kehendaki pasti akan menjadi mudah." },
-            { judul: "27. Doa Menjenguk Orang Sakit", arab: "لَا بَأْسَ طَهُورٌ إِنْ شَاءَ اللَّهُ", latin: "Laa ba'sa thahuurun insyaa Allah.", arti: "Tidak mengapa, semoga sakitmu ini membersihkan dosamu, insya Allah." },
-            { judul: "28. Doa Tertimpa Musibah", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا", latin: "Inna lillahi wa inna ilaihi raji'un, Allahumma jurnii fii mushibatii wa akhlif lii khairan minhaa.", arti: "Sesungguhnya kami milik Allah dan kepada-Nya kami kembali. Ya Allah, berilah aku pahala dalam musibahku ini dan berilah aku ganti yang lebih baik darinya." },
-            { judul: "29. Doa Mendengar Halilintar", arab: "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ وَالْمَلَائِكَةُ مِنْ خِيفَتِهِ", latin: "Subhanalladzi yusabbihur ra'du bihamdihi wal malaa-ikatu min khiifatih.", arti: "Maha Suci Allah yang petir bertasbih dengan memuji-Nya, begitu juga para malaikat karena takut kepada-Nya." },
-            { judul: "30. Doa Melihat Hujan Turun", arab: "اللَّهُمَّ صَيِّبًا نَافِعًا", latin: "Allahumma shayyiban nafi'an.", arti: "Ya Allah, turunkanlah hujan yang bermanfaat." },
-            { judul: "31. Zikir Setelah Hujan", arab: "مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ", latin: "Muthirnaa bifadhlillahi wa rahmatih.", arti: "Kita diberi hujan karena karunia dan rahmat Allah." },
-            { judul: "32. Doa Meminta Hujan Berhenti", arab: "اللَّهُمَّ حَوَالَيْنَا وَلَا عَلَيْنَا", latin: "Allahumma hawalaina wa laa 'alaina.", arti: "Ya Allah, turunkanlah hujan di sekitar kami, bukan di atas kami (yang merusak)." },
-            { judul: "33. Doa Melihat Bulan Sabit", arab: "اللَّهُ أَكْبَرُ، اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْأَمْنِ وَالْإِيمَانِ، وَالسَّلَامَةِ وَالْإِسْلَامِ، وَالتَّوْفِيقِ لِمَا تُحِبُّ رَبَّنَا وَتَرْضَى، رَبُّنَا وَرَبُّكَ اللَّهُ", latin: "Allahu Akbar, Allahumma ahillahu 'alaina bil amni wal iimaan, was salaamati wal islaam...", arti: "Allah Maha Besar. Ya Allah, jadikanlah hilal ini bagi kami membawa keamanan dan keimanan, keselamatan dan Islam..." },
-            { judul: "34. Doa Berbuka Puasa", arab: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ", latin: "Dzahabadh zhama-u wabtallatil 'uruuqu wa tsabatal ajru insyaa Allah.", arti: "Telah hilang dahaga, telah basah urat-urat, dan telah tetap pahala, insya Allah." },
-            { judul: "35. Berbuka di Rumah Orang Lain", arab: "أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ، وَأَكَلَ طَعَامَكُمُ الْأَبْرَارُ، وَصَلَّتْ عَلَيْكُمُ الْمَلَائِكَةُ", latin: "Afthara 'indakumush shaa-imuuna, wa akala tha'aamakumul abraaru, wa shallat 'alaikumul malaa-ikah.", arti: "Semoga orang-orang yang berpuasa berbuka di tempat kalian, orang-orang shalih memakan makanan kalian, dan para malaikat mendoakan kalian." },
-            { judul: "36. Doa Sebelum Makan", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
-            { judul: "37. Jika Dicela Saat Puasa", arab: "إِنِّي صَائِمٌ ، إِنِّي صَائِمٌ", latin: "Inni shaa-imun, inni shaa-im.", arti: "Sesungguhnya aku sedang berpuasa, sesungguhnya aku sedang berpuasa." },
-            { judul: "38. Doa Ketika Marah", arab: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", latin: "A'udzu billahi minasy syaithanir rajiim.", arti: "Aku berlindung kepada Allah dari godaan setan yang terkutuk." },
-            { judul: "39. Melihat Orang Tertimpa Musibah", arab: "الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي مِمَّا ابْتَلَاكَ بِهِ وَفَضَّلَنِي عَلَى كَثِيرٍ مِمَّنْ خَلَقَ تَفْضِيلًا", latin: "Alhamdulillahilladzi 'aafaanii mimmab talaaka bihi, wa fadh-dhalanii 'ala katsiirin mimman khalaqa tafdhiilaa.", arti: "Segala puji bagi Allah yang telah menyelamatkan aku dari musibah yang menimpamu dan benar-benar memuliakanku dari makhluk lainnya." },
-            { judul: "40. Doa Untuk Kebaikan Orang Lain", arab: "جَزَاكَ اللَّهُ خَيْرًا", latin: "Jazakallahu khairan.", arti: "Semoga Allah membalasmu dengan kebaikan." },
-            { judul: "41. Perlindungan dari Dajjal (Tasyahud)", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ، وَمِنْ فِتْنَةِ الْمَحْيَا وَالْمَمَاتِ، وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ", latin: "Allahumma inni a'udzu bika min 'adzabil qabri...", arti: "Ya Allah, aku berlindung kepada-Mu dari siksa kubur, siksa neraka Jahannam, fitnah hidup dan mati, dan kejahatan fitnah Dajjal." },
-            { judul: "42. Doa Takut Syirik", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ، وَأَسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ", latin: "Allahumma inni a'udzu bika an usyrika bika wa anaa a'lam, wa astaghfiruka limaa laa a'lam.", arti: "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari menyekutukan-Mu padahal aku mengetahui, dan aku memohon ampun kepada-Mu atas apa yang tidak aku ketahui." }
+        // --- DZIKIR PAGI SESUAI BUKU HISNUL MUSLIM ---
+        const DAFTAR_DZIKIR = [
+            { 
+                judul: "1. Ayat Kursi", 
+                arab: "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ، لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ", 
+                latin: "Allahu laa ilaaha illa huwal hayyul qayyum...", 
+                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)... (Dibaca 1x Pagi & Petang)" 
+            },
+            { 
+                judul: "2. Al-Ikhlas, Al-Falaq, An-Nas", 
+                arab: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ... (Masing-masing 3x)", 
+                latin: "(Membaca 3 Surah Terakhir dalam Al-Qur'an)", 
+                arti: "Siapa yang mengucapkannya masing-masing tiga kali ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya." 
+            },
+            { 
+                judul: "3. Dzikir Pagi", 
+                arab: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ...", 
+                latin: "Ash-bahnaa wa ash-bahal mulku lillah walhamdulillah...", 
+                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah..." 
+            },
+            { 
+                judul: "4. Doa Pagi", 
+                arab: "اَللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوْتُ وَإِلَيْكَ النُّشُوْرُ", 
+                latin: "Allahumma bika ash-bahnaa wa bika amsaynaa...", 
+                arti: "Ya Allah, dengan rahmat-Mu kami memasuki waktu pagi, dan dengan rahmat-Mu kami memasuki waktu petang..." 
+            },
+            { 
+                judul: "5. Sayyidul Istighfar", 
+                arab: "اَللَّهُمَّ أَنْتَ رَبِّيْ لاَ إِلَـهَ إِلاَّ أَنْتَ، خَلَقْتَنِيْ وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوْذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ...", 
+                latin: "Allahumma anta robbii laa ilaha illa anta...", 
+                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada ilah yang berhak disembah kecuali Engkau..." 
+            },
+            { 
+                judul: "6. Persaksian Pagi/Petang (4x)", 
+                arab: "اَللَّهُمَّ إِنِّيْ أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلاَئِكَتَكَ وَجَمِيْعَ خَلْقِكَ...", 
+                latin: "Allahumma inni ash-bahtu usy-hiduka wa usy-hidu hamalata ‘arsyika...", 
+                arti: "Ya Allah, sesungguhnya aku di waktu pagi ini mempersaksikan Engkau, malaikat pemikul ‘Arys-Mu..." 
+            },
+            { 
+                judul: "7. Mohon Afiyat", 
+                arab: "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَاْلآخِرَةِ...", 
+                latin: "Allahumma innii as-alukal ‘afwa wal ‘aafiyah fid dunyaa wal aakhiroh...", 
+                arti: "Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan di dunia dan akhirat..." 
+            },
+            { 
+                judul: "8. Perlindungan dari Syirik", 
+                arab: "اَللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَاْلأَرْضِ...", 
+                latin: "Allahumma ‘aalimal ghoybi wasy syahaadah...", 
+                arti: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, Pencipta langit dan bumi..." 
+            },
+            { 
+                judul: "9. Perlindungan Total (3x)", 
+                arab: "بِسْمِ اللَّهِ الَّذِى لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِى الأَرْضِ وَلاَ فِى السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
+                latin: "Bismillahilladzi laa yadhurru ma’asmihi syai-un fil ardhi...", 
+                arti: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya..." 
+            },
+            { 
+                judul: "10. Ridho Billah (3x)", 
+                arab: "رَضِيْتُ بِاللهِ رَبًّا، وَبِاْلإِسْلاَمِ دِيْنًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
+                latin: "Rodhiitu billaahi robbaa wa bil-islaami diinaa...", 
+                arti: "Aku ridha Allah sebagai Rabb, Islam sebagai agama dan Muhammad SAW sebagai nabi." 
+            },
+            { 
+                judul: "11. Ya Hayyu Ya Qoyyum", 
+                arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ، وَأَصْلِحْ لِيْ شَأْنِيْ كُلَّهُ...", 
+                latin: "Yaa Hayyu Yaa Qoyyum, bi-rohmatika as-taghiits...", 
+                arti: "Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri..." 
+            },
+            { 
+                judul: "12. Fitrah Islam (Pagi)", 
+                arab: "أَصْبَحْنَا عَلَى فِطْرَةِ اْلإِسْلاَمِ وَعَلَى كَلِمَةِ اْلإِخْلاَصِ...", 
+                latin: "Ash-bahnaa ‘ala fithrotil islaam wa ‘alaa kalimatil ikhlaash...", 
+                arti: "Di waktu pagi kami memegang agama Islam, kalimat ikhlas, agama Nabi kami Muhammad SAW..." 
+            }
         ];
 
         const getGregorianDate = (startDate, dayIndex) => {
@@ -165,13 +195,13 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 500; 
+                        const MAX_WIDTH = 500; // Kompresi Lebar (Lebih Ringan)
                         const scaleSize = MAX_WIDTH / img.width;
                         canvas.width = (scaleSize < 1) ? MAX_WIDTH : img.width;
                         canvas.height = (scaleSize < 1) ? (img.height * scaleSize) : img.height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5)); 
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // Kompresi Kualitas 50%
                     }
                 }
             });
@@ -335,7 +365,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 5.2 (Doa Lengkap)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Finishing (1x Kirim)</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -478,7 +508,6 @@
                             {activeTab === 'hafalan' && <div className="mb-3"><div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2"><div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Audio</span></div><audio controls src={item.audio} className="h-8 w-32" /></div><div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div></div>}
                             {activeTab === 'galeri' && <div className="mb-3"><img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" /><div className="text-[10px] text-slate-500 italic">{item.rincian}</div></div>}
                             
-                            {/* HANYA TAMPILKAN TOMBOL NILAI UTK HAFALAN & FOTO */}
                             <div className="border-t pt-2 mt-2 flex justify-between items-center">
                                 <div className="text-xs">
                                     {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : (activeTab === 'jurnal' ? '' : <span className="text-red-400 italic">Belum dinilai</span>)}
@@ -524,6 +553,7 @@
             const [raportData, setRaportData] = useState([]);
             const [loadingRaport, setLoadingRaport] = useState(false);
             const [totalGuruScore, setTotalGuruScore] = useState(0); 
+            const [dailySubmissions, setDailySubmissions] = useState({ journal: false, audio: false, photo: false });
             
             const currentDateGregorian = getGregorianDate(studentProfile.startDateRamadan || '2026-02-18', activeDay);
             const triggerConfetti = () => { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); };
@@ -541,7 +571,18 @@
             useEffect(() => { if (Object.keys(userData).length > 0) localStorage.setItem('ramadanJournalData', JSON.stringify(userData)); }, [userData]);
             useEffect(() => { localStorage.setItem('ramadanProfile', JSON.stringify(studentProfile)); }, [studentProfile]);
 
-            // FIX: UPDATED FIELD LOGIC
+            // CHECK SUBMISSIONS FOR CURRENT DAY
+            useEffect(() => {
+                if (!raportData) return;
+                const currentDayData = raportData.filter(d => parseInt(d.hari) === activeDay);
+                const status = {
+                    journal: currentDayData.some(d => (!d.audio || d.audio.length < 50) && (!d.foto || d.foto.length < 50)),
+                    audio: currentDayData.some(d => d.audio && d.audio.length > 50),
+                    photo: currentDayData.some(d => d.foto && d.foto.length > 50)
+                };
+                setDailySubmissions(status);
+            }, [raportData, activeDay]);
+
             const updateField = (day, field, value) => { 
                 setUserData(prev => {
                     const dayData = prev[day] || {};
@@ -564,7 +605,20 @@
             };
 
             const toggleValidation = (day) => { setUserData(prev => ({ ...prev, [day]: { ...prev[day], validated: !prev[day].validated } })); if (!userData[day].validated) triggerConfetti(); };
-            const handleImageUpload = async (e) => { const file = e.target.files[0]; if(file) { if(file.size > 2 * 1024 * 1024) return alert("Ukuran file terlalu besar! Maks 2MB."); setSelectedImage(file.name); try { const b64 = await compressImage(file); setBase64Image(b64); } catch(e){ alert("Gagal memproses gambar."); } } };
+            
+            // NO LIMIT on Image Size, just Compress
+            const handleImageUpload = async (e) => { 
+                const file = e.target.files[0]; 
+                if(file) { 
+                    setSelectedImage(file.name); 
+                    try { 
+                        const b64 = await compressImage(file); 
+                        setBase64Image(b64); 
+                    } catch(e){ 
+                        alert("Gagal memproses gambar."); 
+                    } 
+                } 
+            };
             const removeImage = () => { setSelectedImage(null); setBase64Image(""); };
             const startRecording = async () => { try { const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); const options = { mimeType: 'audio/webm;codecs=opus' }; const mediaRecorder = new MediaRecorder(stream, MediaRecorder.isTypeSupported(options.mimeType) ? options : {}); mediaRecorderRef.current = mediaRecorder; const chunks = []; mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); }; mediaRecorder.onstop = () => { const blob = new Blob(chunks, { type: 'audio/webm' }); setAudioBlob(blob); setAudioUrl(URL.createObjectURL(blob)); stream.getTracks().forEach(track => track.stop()); }; mediaRecorder.start(); setIsRecording(true); } catch (e) { alert("Gagal mengakses Mic."); } };
             const stopRecording = () => { if(mediaRecorderRef.current) { mediaRecorderRef.current.stop(); setIsRecording(false); } };
@@ -623,7 +677,15 @@
                 <div className="min-h-screen bg-emerald-50 pb-24 font-sans">
                     <div className="bg-emerald-600 text-white p-5 rounded-b-3xl shadow-lg sticky top-0 z-10"><div className="flex justify-between items-center mb-2"><div><h1 className="font-bold">{studentProfile.name || 'Murid'}</h1><p className="text-xs opacity-80">{studentProfile.class || 'Kelas -'}</p></div><button onClick={() => setView('cover')} className="bg-white/20 p-2 rounded-full hover:bg-white/30"><Icons.Settings size={18}/></button></div><div className="bg-emerald-800/30 p-2 rounded-xl flex items-center justify-between"><span className="text-xs font-bold flex items-center gap-1"><Icons.Trophy size={14} className="text-yellow-300"/> Total Poin:</span><span className="text-xl font-black text-yellow-300">{getDisplayScore()}</span></div></div>
                     <div className="px-4 -mt-4 relative z-10">
-                        <div className="bg-white p-1 rounded-xl shadow-md flex mb-4 text-[10px] font-bold text-center border border-slate-100 overflow-x-auto">{['journal', 'doa', 'hafalan', 'raport', 'achievements'].map(m => (<button key={m} onClick={() => setView(m)} className={`flex-1 py-2 px-1 capitalize rounded-lg transition-colors border ${view===m ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-slate-400 border-transparent hover:bg-slate-50'}`}>{m === 'achievements' ? 'Lapor' : m === 'journal' ? 'Jurnal' : m === 'doa' ? 'Doa' : m}</button>))}</div>
+                        {/* UPDATE MENU TAB ORDER */}
+                        <div className="bg-white p-1 rounded-xl shadow-md flex mb-4 text-[10px] font-bold text-center border border-slate-100 overflow-x-auto">
+                            {['journal', 'doa', 'hafalan', 'achievements', 'raport'].map(m => (
+                                <button key={m} onClick={() => setView(m)} className={`flex-1 py-2 px-1 capitalize rounded-lg transition-colors border ${view===m ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'text-slate-400 border-transparent hover:bg-slate-50'}`}>
+                                    {m === 'achievements' ? 'Gambar' : m === 'journal' ? 'Jurnal' : m === 'doa' ? 'Doa' : m === 'raport' ? 'Rapor' : m}
+                                </button>
+                            ))}
+                        </div>
+
                         {view === 'journal' && (<div className="space-y-4 animate-in fade-in">
                             <div className="flex items-center justify-between bg-white p-2 rounded-xl shadow-sm border border-slate-200"><button onClick={() => setActiveDay(d => Math.max(1, d - 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronLeft size={16}/></button><div className="text-center"><div className="font-bold text-slate-800">Hari ke-{activeDay}</div><div className="text-[10px] text-slate-500">{currentDateGregorian}</div></div><button onClick={() => setActiveDay(d => Math.min(30, d + 1))} className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100"><Icons.ChevronRight size={16}/></button></div>{userData[activeDay]?.validated && <div className="bg-green-100 text-green-700 p-2 rounded-lg text-xs font-bold text-center border border-green-200">✅ Data sudah divalidasi</div>}<div className="night-sky rounded-2xl p-4 text-white shadow-lg mb-4 border border-indigo-900"><div className="star" style={{top: '10%', left: '20%', width: '2px', height: '2px'}}></div><div className="star" style={{top: '40%', left: '80%', width: '3px', height: '3px', animationDelay: '1s'}}></div><div className="flex justify-between items-center relative z-10"><div><h3 className="font-bold text-lg flex items-center gap-2"><Icons.Moon size={18} className="text-yellow-300 fill-yellow-300"/> Salat Malam</h3><p className="text-[10px] text-indigo-200 opacity-80">Qiyamul Lail</p><div className="mt-2 inline-block bg-white/10 border border-white/20 px-2 py-1 rounded text-[10px] font-bold text-yellow-200">Nilai: {activeDay >= 21 ? '20 (Lailatul Qadar)' : '10'} Poin</div></div><button onClick={() => toggleCheck(activeDay, 'salatMalam')} className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${userData[activeDay]?.salatMalam ? 'bg-yellow-400 border-yellow-200 text-indigo-900 shadow-[0_0_15px_rgba(250,204,21,0.6)]' : 'bg-transparent border-indigo-400/30 text-transparent hover:bg-white/5'}`}><Icons.CheckSquare size={24} strokeWidth={4} /></button></div></div>
                             <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-4"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Sun size={12}/> Puasa Hari Ini</h3><div className="flex gap-2"><button onClick={() => togglePuasa('penuh')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaPenuh ? 'bg-orange-50 border-orange-500' : 'bg-white border-slate-100'}`}><Icons.Sun size={20} className={userData[activeDay]?.puasaPenuh ? "text-orange-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Penuh (20)</span></button><button onClick={() => togglePuasa('setengah')} className={`flex-1 py-3 px-2 rounded-xl border-2 flex flex-col items-center justify-center transition ${userData[activeDay]?.puasaSetengah ? 'bg-blue-50 border-blue-500' : 'bg-white border-slate-100'}`}><Icons.CloudSun size={20} className={userData[activeDay]?.puasaSetengah ? "text-blue-500" : "text-slate-300"} /><span className="text-xs font-bold mt-1 text-slate-700">Setengah (10)</span></button></div></div>
@@ -633,15 +695,22 @@
                             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm"><h3 className="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-1"><Icons.Mic size={12}/> Jurnal Ceramah</h3><div className="space-y-3"><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Nama Penceramah (+5)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Contoh: Al-Ustaz Khidir bin Muh. Sunusi" value={userData[activeDay]?.namaPenceramah || ''} onChange={e => updateField(activeDay, 'namaPenceramah', e.target.value)} /></div><div><label className="text-[10px] text-slate-400 font-bold mb-1 block">Tema Ceramah (+10)</label><input type="text" className="w-full text-xs p-3 bg-slate-50 rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="Isi tema ceramah..." value={userData[activeDay]?.temaCeramah || ''} onChange={e => updateField(activeDay, 'temaCeramah', e.target.value)} /></div></div></div>
                             
                             <div className="bg-blue-50 p-4 rounded-xl border border-blue-200 text-center shadow-sm mb-2">
-                                <button onClick={sendData} disabled={isSubmitting} className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-blue-700 shadow-md">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan Jurnal</button>
+                                <button onClick={sendData} disabled={isSubmitting || dailySubmissions.journal} className={`w-full text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2 shadow-md ${dailySubmissions.journal ? 'bg-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}>
+                                    {isSubmitting ? <Icons.Loader2 className="animate-spin"/> : dailySubmissions.journal ? <Icons.CheckCircle/> : <Icons.CloudUpload/>} 
+                                    {dailySubmissions.journal ? 'Sudah Dikirim Hari Ini' : 'Kirim Laporan Jurnal'}
+                                </button>
                                 <p className="text-[10px] text-blue-600 mt-2">Poin jurnal dihitung otomatis oleh sistem.</p>
                             </div>
                         </div>)}
 
-                        {view === 'hafalan' && (<div className="bg-white p-6 rounded-2xl text-center shadow-sm animate-in fade-in border border-slate-200"><Icons.Mic size={40} className="mx-auto text-emerald-500 mb-2"/><h2 className="font-bold mb-4">Setor Hafalan Audio</h2><input className="w-full border p-3 rounded-xl mb-4 text-sm bg-slate-50 focus:bg-white focus:border-emerald-500 outline-none" placeholder="Contoh: Surah An-Nas / Hadits Niat" value={namaSurah} onChange={e=>setNamaSurah(e.target.value)}/>{!audioUrl ? <button onClick={isRecording ? stopRecording : startRecording} className={`w-full py-6 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95 border ${isRecording ? 'bg-red-500 border-red-600 animate-pulse' : 'bg-blue-600 border-blue-700 hover:bg-blue-700'}`}>{isRecording ? <Icons.StopCircle/> : <Icons.Mic/>} {isRecording ? 'Stop Rekam' : 'Mulai Rekam'}</button> : <div className="space-y-3"><div className="bg-slate-100 p-3 rounded-xl flex items-center gap-2 border border-slate-200"><Icons.Play className="text-blue-500" size={20}/> <span className="text-xs font-bold">Rekaman Siap</span></div><div className="flex gap-2"><button onClick={deleteRecording} className="flex-1 py-3 text-red-500 bg-red-50 rounded-xl font-bold text-xs border border-red-200 hover:bg-red-100">Hapus</button><button onClick={() => {const a = new Audio(audioUrl); a.play()}} className="flex-1 py-3 text-blue-500 bg-blue-50 rounded-xl font-bold text-xs border border-blue-200 hover:bg-blue-100">Dengar</button></div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-green-600 text-white py-3 rounded-xl font-bold flex justify-center gap-2 mt-2 shadow-lg hover:bg-green-700 border border-green-700">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Hafalan</button></div>}</div>)}
+                        {view === 'hafalan' && (<div className="bg-white p-6 rounded-2xl text-center shadow-sm animate-in fade-in border border-slate-200"><Icons.Mic size={40} className="mx-auto text-emerald-500 mb-2"/><h2 className="font-bold mb-4">Setor Hafalan Audio</h2><input className="w-full border p-3 rounded-xl mb-4 text-sm bg-slate-50 focus:bg-white focus:border-emerald-500 outline-none" placeholder="Contoh: Surah An-Nas / Hadits Niat" value={namaSurah} onChange={e=>setNamaSurah(e.target.value)}/>{!audioUrl ? <button onClick={isRecording ? stopRecording : startRecording} className={`w-full py-6 rounded-2xl text-white font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition transform active:scale-95 border ${isRecording ? 'bg-red-500 border-red-600 animate-pulse' : 'bg-blue-600 border-blue-700 hover:bg-blue-700'}`}>{isRecording ? <Icons.StopCircle/> : <Icons.Mic/>} {isRecording ? 'Stop Rekam' : 'Mulai Rekam'}</button> : <div className="space-y-3"><div className="bg-slate-100 p-3 rounded-xl flex items-center gap-2 border border-slate-200"><Icons.Play className="text-blue-500" size={20}/> <span className="text-xs font-bold">Rekaman Siap</span></div><div className="flex gap-2"><button onClick={deleteRecording} className="flex-1 py-3 text-red-500 bg-red-50 rounded-xl font-bold text-xs border border-red-200 hover:bg-red-100">Hapus</button><button onClick={() => {const a = new Audio(audioUrl); a.play()}} className="flex-1 py-3 text-blue-500 bg-blue-50 rounded-xl font-bold text-xs border border-blue-200 hover:bg-blue-100">Dengar</button></div>
+                            <button onClick={sendData} disabled={isSubmitting || dailySubmissions.audio} className={`w-full text-white py-3 rounded-xl font-bold flex justify-center gap-2 mt-2 shadow-lg border ${dailySubmissions.audio ? 'bg-slate-400 border-slate-500 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 border-green-700'}`}>
+                                {isSubmitting ? <Icons.Loader2 className="animate-spin"/> : dailySubmissions.audio ? <Icons.CheckCircle/> : <Icons.CloudUpload/>} 
+                                {dailySubmissions.audio ? 'Sudah Dikirim' : 'Kirim Hafalan'}
+                            </button></div>}</div>)}
                         
                         {view === 'doa' && (<div className="space-y-3 pb-10">
-                            {DAFTAR_DOA.map((doa, i) => (
+                            {DAFTAR_DZIKIR.map((doa, i) => (
                                 <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                                     <h3 className="font-bold text-sm text-slate-700 mb-2">{doa.judul}</h3>
                                     <p className="text-right font-serif text-lg leading-loose mb-2 text-slate-800">{doa.arab}</p>
@@ -651,16 +720,7 @@
                             ))}
                         </div>)}
                         
-                        {/* UPDATE RAPOR VIEW */}
-                        {view === 'raport' && (<div className="space-y-3 pb-10">
-                            <div className="bg-indigo-900 text-white p-4 rounded-xl mb-4 shadow-lg border border-indigo-800">
-                                <h2 className="font-bold text-lg mb-1 flex items-center gap-2"><Icons.Award className="text-yellow-300"/> Total Nilai</h2>
-                                <p className="text-xs text-indigo-200 mb-2">Poin Jurnal + Nilai Guru</p>
-                                <div className="text-3xl font-black text-yellow-300">{loadingRaport ? '...' : getDisplayScore()}</div>
-                            </div>
-                            
-                            <h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat Setoran</h2>
-                            {loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => {
+                        {view === 'raport' && (<div className="space-y-3 pb-10"><h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat & Nilai</h2>{loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => {
                                 const isMedia = (item.audio && item.audio.length > 50) || (item.foto && item.foto.length > 50);
                                 return (
                                 <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100">
@@ -677,14 +737,16 @@
                                             {item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}
                                         </div>
                                     ) : (
-                                        // HANYA TAMPILKAN "MENUNGGU..." JIKA ITU ADALAH SETORAN MEDIA (HAFALAN/FOTO)
                                         isMedia ? <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div> : null
                                     )}
                                 </div>
                             )})} 
                         </div>)}
-                        
-                        {view === 'achievements' && (<div className="bg-white p-5 rounded-2xl shadow-sm text-center border border-slate-200"><h2 className="text-lg font-bold mb-1">Lapor Harian</h2><p className="text-xs text-slate-500 mb-4">Kirim poin jurnal & foto bukti kegiatan.</p><div className="mb-4 text-left p-3 bg-slate-50 rounded-xl border border-dashed border-slate-300"><label className="text-xs font-bold text-slate-400 block mb-2">Upload Foto (Opsional)</label>{!selectedImage ? <label className="flex items-center justify-center h-20 cursor-pointer hover:bg-slate-100 transition rounded-lg"><Icons.Camera className="text-slate-300 mr-2"/><span className="text-xs text-slate-400">Ambil Foto (Max 2MB)</span><input type="file" accept="image/*" className="hidden" onChange={handleImageUpload}/></label> : <div className="flex items-center justify-between"><span className="text-xs truncate max-w-[150px]">{selectedImage}</span><button onClick={removeImage} className="text-red-500 p-2 hover:bg-red-50 rounded-full"><Icons.XIcon size={16}/></button></div>}</div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2 hover:bg-emerald-700 border border-emerald-700 transition transform active:scale-95">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan</button></div>)}
+                        {view === 'achievements' && (<div className="bg-white p-5 rounded-2xl shadow-sm text-center border border-slate-200"><h2 className="text-lg font-bold mb-1">Lapor Gambar</h2><p className="text-xs text-slate-500 mb-4">Kirim foto kegiatan Ramadan.</p><div className="mb-4 text-left p-3 bg-slate-50 rounded-xl border border-dashed border-slate-300"><label className="text-xs font-bold text-slate-400 block mb-2">Upload Foto</label>{!selectedImage ? <label className="flex items-center justify-center h-20 cursor-pointer hover:bg-slate-100 transition rounded-lg"><Icons.Camera className="text-slate-300 mr-2"/><span className="text-xs text-slate-400">Ambil Foto</span><input type="file" accept="image/*" className="hidden" onChange={handleImageUpload}/></label> : <div className="flex items-center justify-between"><span className="text-xs truncate max-w-[150px]">{selectedImage}</span><button onClick={removeImage} className="text-red-500 p-2 hover:bg-red-50 rounded-full"><Icons.XIcon size={16}/></button></div>}</div>
+                        <button onClick={sendData} disabled={isSubmitting || dailySubmissions.photo} className={`w-full text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2 transition transform active:scale-95 border ${dailySubmissions.photo ? 'bg-slate-400 border-slate-500 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 border-emerald-700'}`}>
+                            {isSubmitting ? <Icons.Loader2 className="animate-spin"/> : dailySubmissions.photo ? <Icons.CheckCircle/> : <Icons.CloudUpload/>} 
+                            {dailySubmissions.photo ? 'Sudah Dikirim' : 'Kirim Foto'}
+                        </button></div>)}
                     </div>
                     {showConfetti && <div className="fixed inset-0 flex items-center justify-center z-50 text-6xl animate-bounce">🎉</div>}
                 </div>
