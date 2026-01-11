@@ -103,19 +103,79 @@
             List: (p) => <Icon name="List" {...p} />
         };
 
-        // --- DZIKIR: ARAHAN BUKU ---
+        // --- DZIKIR PAGI SESUAI BUKU HISNUL MUSLIM ---
         const DAFTAR_DZIKIR = [
             { 
-                judul: "📖 Panduan Dzikir Pagi & Petang", 
-                arab: "Silakan buka Buku Dzikir yang telah dibagikan", 
-                latin: "Untuk teks lengkap, mohon merujuk pada buku saku Hisnul Muslim / Dzikir Pagi Petang yang telah dibagikan oleh sekolah.", 
-                arti: "Aplikasi ini berfungsi sebagai pengingat. Membaca melalui buku fisik lebih utama, lebih jelas, dan lebih khusyuk." 
+                judul: "1. Ayat Kursi", 
+                arab: "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ، لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ", 
+                latin: "Allahu laa ilaaha illa huwal hayyul qayyum...", 
+                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)... (Dibaca 1x Pagi & Petang)" 
             },
             { 
-                judul: "Urutan Dzikir", 
-                arab: "١. آية الكرسي ... ٢. المعوذات ...", 
-                latin: "1. Ayat Kursi, 2. Al-Ikhlas, Al-Falaq, An-Nas (3x), 3. Sayyidul Istighfar, dst.", 
-                arti: "Ikuti urutan yang tertera di dalam buku saku Anda." 
+                judul: "2. Al-Ikhlas, Al-Falaq, An-Nas", 
+                arab: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ... (Masing-masing 3x)", 
+                latin: "(Membaca 3 Surah Terakhir dalam Al-Qur'an)", 
+                arti: "Siapa yang mengucapkannya masing-masing tiga kali ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya." 
+            },
+            { 
+                judul: "3. Dzikir Pagi", 
+                arab: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ...", 
+                latin: "Ash-bahnaa wa ash-bahal mulku lillah walhamdulillah...", 
+                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah..." 
+            },
+            { 
+                judul: "4. Doa Pagi", 
+                arab: "اَللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوْتُ وَإِلَيْكَ النُّشُوْرُ", 
+                latin: "Allahumma bika ash-bahnaa wa bika amsaynaa...", 
+                arti: "Ya Allah, dengan rahmat-Mu kami memasuki waktu pagi, dan dengan rahmat-Mu kami memasuki waktu petang..." 
+            },
+            { 
+                judul: "5. Sayyidul Istighfar", 
+                arab: "اَللَّهُمَّ أَنْتَ رَبِّيْ لاَ إِلَـهَ إِلاَّ أَنْتَ، خَلَقْتَنِيْ وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوْذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ...", 
+                latin: "Allahumma anta robbii laa ilaha illa anta...", 
+                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada ilah yang berhak disembah kecuali Engkau..." 
+            },
+            { 
+                judul: "6. Persaksian Pagi/Petang (4x)", 
+                arab: "اَللَّهُمَّ إِنِّيْ أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلاَئِكَتَكَ وَجَمِيْعَ خَلْقِكَ...", 
+                latin: "Allahumma inni ash-bahtu usy-hiduka wa usy-hidu hamalata ‘arsyika...", 
+                arti: "Ya Allah, sesungguhnya aku di waktu pagi ini mempersaksikan Engkau, malaikat pemikul ‘Arys-Mu..." 
+            },
+            { 
+                judul: "7. Mohon Afiyat", 
+                arab: "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَاْلآخِرَةِ...", 
+                latin: "Allahumma innii as-alukal ‘afwa wal ‘aafiyah fid dunyaa wal aakhiroh...", 
+                arti: "Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan di dunia dan akhirat..." 
+            },
+            { 
+                judul: "8. Perlindungan dari Syirik", 
+                arab: "اَللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَاْلأَرْضِ...", 
+                latin: "Allahumma ‘aalimal ghoybi wasy syahaadah...", 
+                arti: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, Pencipta langit dan bumi..." 
+            },
+            { 
+                judul: "9. Perlindungan Total (3x)", 
+                arab: "بِسْمِ اللَّهِ الَّذِى لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِى الأَرْضِ وَلاَ فِى السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
+                latin: "Bismillahilladzi laa yadhurru ma’asmihi syai-un fil ardhi...", 
+                arti: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya..." 
+            },
+            { 
+                judul: "10. Ridho Billah (3x)", 
+                arab: "رَضِيْتُ بِاللهِ رَبًّا، وَبِاْلإِسْلاَمِ دِيْنًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
+                latin: "Rodhiitu billaahi robbaa wa bil-islaami diinaa...", 
+                arti: "Aku ridha Allah sebagai Rabb, Islam sebagai agama dan Muhammad SAW sebagai nabi." 
+            },
+            { 
+                judul: "11. Ya Hayyu Ya Qoyyum", 
+                arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ، وَأَصْلِحْ لِيْ شَأْنِيْ كُلَّهُ...", 
+                latin: "Yaa Hayyu Yaa Qoyyum, bi-rohmatika as-taghiits...", 
+                arti: "Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri..." 
+            },
+            { 
+                judul: "12. Fitrah Islam (Pagi)", 
+                arab: "أَصْبَحْنَا عَلَى فِطْرَةِ اْلإِسْلاَمِ وَعَلَى كَلِمَةِ اْلإِخْلاَصِ...", 
+                latin: "Ash-bahnaa ‘ala fithrotil islaam wa ‘alaa kalimatil ikhlaash...", 
+                arti: "Di waktu pagi kami memegang agama Islam, kalimat ikhlas, agama Nabi kami Muhammad SAW..." 
             }
         ];
 
@@ -305,7 +365,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 5.0 (Instruksi Dzikir)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 5.1 (Fix Layout)</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -342,8 +402,8 @@
                                     <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                                         <h3 className="font-bold text-sm text-slate-700 flex items-center gap-2"><Icons.Settings size={16}/> Pengaturan Aplikasi</h3>
                                         <div><label className="text-[10px] font-bold text-slate-500 block mb-1">Nama Sekolah</label><input type="text" value={tempSchoolName} onChange={e => setTempSchoolName(e.target.value)} className="w-full p-2 border rounded-lg text-sm bg-white" /></div>
-                                        <div><label className="text-[10px] font-bold text-slate-500 block mb-1">Link Script Google Apps</label><input type="text" value={tempScriptUrl} onChange={e => setTempScriptUrl(e.target.value)} className="w-full p-2 border rounded-lg text-xs font-mono bg-white text-slate-600" /></div>
-                                        <div className="pt-2 border-t border-slate-200"><label className="text-[10px] font-bold text-red-500 block mb-1">Ganti PIN Guru</label><input type="text" value={tempPin} onChange={e => setTempPin(e.target.value)} className="w-full p-2 border border-red-200 rounded-lg text-sm bg-red-50 text-center font-bold tracking-widest text-red-800" /></div>
+                                        <div><label className="text-[10px] font-bold text-slate-500 block mb-1">Link Script Google Apps</label><input type="text" value={tempScriptUrl} onChange={e => setTempScriptUrl(e.target.value)} className="w-full p-2 border rounded-lg text-xs font-mono bg-white text-slate-600" placeholder="https://script.google.com..." /></div>
+                                        <div className="pt-2 border-t border-slate-200"><label className="text-[10px] font-bold text-red-500 block mb-1">Ganti PIN Guru (Hati-hati)</label><input type="text" value={tempPin} onChange={e => setTempPin(e.target.value)} className="w-full p-2 border border-red-200 rounded-lg text-sm bg-red-50 text-center font-bold tracking-widest text-red-800" /></div>
                                         <button onClick={handleSave} className="w-full bg-blue-600 text-white py-2 rounded-lg font-bold text-xs hover:bg-blue-700 flex justify-center items-center gap-2"><Icons.Save size={14}/> Simpan Pengaturan</button>
                                     </div>
                                     <div className="mt-4 text-center"><button onClick={() => setViewState('home')} className="text-xs text-slate-400 hover:text-slate-600 underline">Keluar Panel</button></div>
@@ -414,6 +474,7 @@
             const getFilteredData = () => {
                 if (activeTab === 'hafalan') return data.filter(item => item.audio && item.audio.length > 50);
                 if (activeTab === 'galeri') return data.filter(item => item.foto && item.foto.length > 50);
+                // Jurnal = yang BUKAN audio dan BUKAN foto
                 return data.filter(item => (!item.audio || item.audio.length <= 50) && (!item.foto || item.foto.length <= 50)); 
             };
 
@@ -619,7 +680,39 @@
                             ))}
                         </div>)}
                         
-                        {view === 'raport' && (<div className="space-y-3 pb-10"><h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat & Nilai</h2>{loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => (<div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100"><div className="flex justify-between text-xs text-slate-500 mb-1"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div><div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>{(item.nilaiGuru || item.koreksiGuru) ? (<div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">{item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}{item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}</div>) : <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div>}</div>))}</div>)}
+                        {/* UPDATE RAPOR VIEW */}
+                        {view === 'raport' && (<div className="space-y-3 pb-10">
+                            <div className="bg-indigo-900 text-white p-4 rounded-xl mb-4 shadow-lg border border-indigo-800">
+                                <h2 className="font-bold text-lg mb-1 flex items-center gap-2"><Icons.Award className="text-yellow-300"/> Total Nilai</h2>
+                                <p className="text-xs text-indigo-200 mb-2">Poin Jurnal + Nilai Guru</p>
+                                <div className="text-3xl font-black text-yellow-300">{loadingRaport ? '...' : getDisplayScore()}</div>
+                            </div>
+                            
+                            <h2 className="font-bold text-emerald-800 flex items-center gap-2 mb-2"><Icons.FileText size={18}/> Riwayat Setoran</h2>
+                            {loadingRaport ? <div className="text-center text-slate-400 py-4">Mengambil data...</div> : raportData.length === 0 ? <div className="text-center text-slate-400 py-4 bg-white rounded-xl border border-slate-200">Belum ada data nilai.</div> : raportData.map((item, idx) => {
+                                const isMedia = (item.audio && item.audio.length > 50) || (item.foto && item.foto.length > 50);
+                                return (
+                                <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500 border border-slate-100">
+                                    <div className="flex justify-between text-xs text-slate-500 mb-2"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div>
+                                    
+                                    {item.audio && item.audio.length > 50 && <div className="mb-2 bg-blue-50 p-2 rounded border border-blue-100 flex items-center gap-2"><Icons.Play size={12} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Setoran Audio</span></div>}
+                                    {item.foto && item.foto.length > 50 && <div className="mb-2"><img src={item.foto} className="h-20 w-full object-cover rounded border border-slate-200" alt="Bukti"/></div>}
+                                    
+                                    <div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>
+                                    
+                                    {(item.nilaiGuru || item.koreksiGuru) ? (
+                                        <div className="mt-2 bg-yellow-50 p-2 rounded-lg border border-yellow-100">
+                                            {item.nilaiGuru && <div className="text-sm font-bold text-emerald-600">Nilai: {item.nilaiGuru}</div>}
+                                            {item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}
+                                        </div>
+                                    ) : (
+                                        // HANYA TAMPILKAN "MENUNGGU..." JIKA ITU ADALAH SETORAN MEDIA (HAFALAN/FOTO)
+                                        isMedia ? <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div> : null
+                                    )}
+                                </div>
+                            )})} 
+                        </div>)}
+                        
                         {view === 'achievements' && (<div className="bg-white p-5 rounded-2xl shadow-sm text-center border border-slate-200"><h2 className="text-lg font-bold mb-1">Lapor Harian</h2><p className="text-xs text-slate-500 mb-4">Kirim poin jurnal & foto bukti kegiatan.</p><div className="mb-4 text-left p-3 bg-slate-50 rounded-xl border border-dashed border-slate-300"><label className="text-xs font-bold text-slate-400 block mb-2">Upload Foto (Opsional)</label>{!selectedImage ? <label className="flex items-center justify-center h-20 cursor-pointer hover:bg-slate-100 transition rounded-lg"><Icons.Camera className="text-slate-300 mr-2"/><span className="text-xs text-slate-400">Ambil Foto (Max 2MB)</span><input type="file" accept="image/*" className="hidden" onChange={handleImageUpload}/></label> : <div className="flex items-center justify-between"><span className="text-xs truncate max-w-[150px]">{selectedImage}</span><button onClick={removeImage} className="text-red-500 p-2 hover:bg-red-50 rounded-full"><Icons.XIcon size={16}/></button></div>}</div><button onClick={sendData} disabled={isSubmitting} className="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg flex justify-center items-center gap-2 hover:bg-emerald-700 border border-emerald-700 transition transform active:scale-95">{isSubmitting ? <Icons.Loader2 className="animate-spin"/> : <Icons.CloudUpload/>} Kirim Laporan</button></div>)}
                     </div>
                     {showConfetti && <div className="fixed inset-0 flex items-center justify-center z-50 text-6xl animate-bounce">🎉</div>}
