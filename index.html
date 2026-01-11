@@ -103,80 +103,50 @@
             List: (p) => <Icon name="List" {...p} />
         };
 
-        // --- DZIKIR PAGI SESUAI BUKU HISNUL MUSLIM ---
-        const DAFTAR_DZIKIR = [
-            { 
-                judul: "1. Ayat Kursi", 
-                arab: "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ، لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ", 
-                latin: "Allahu laa ilaaha illa huwal hayyul qayyum...", 
-                arti: "Allah, tidak ada Tuhan selain Dia. Yang Maha Hidup, Yang terus menerus mengurus (makhluk-Nya)... (Dibaca 1x Pagi & Petang)" 
-            },
-            { 
-                judul: "2. Al-Ikhlas, Al-Falaq, An-Nas", 
-                arab: "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ... (Masing-masing 3x)", 
-                latin: "(Membaca 3 Surah Terakhir dalam Al-Qur'an)", 
-                arti: "Siapa yang mengucapkannya masing-masing tiga kali ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya." 
-            },
-            { 
-                judul: "3. Dzikir Pagi", 
-                arab: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ...", 
-                latin: "Ash-bahnaa wa ash-bahal mulku lillah walhamdulillah...", 
-                arti: "Kami telah memasuki waktu pagi dan kerajaan hanya milik Allah, segala puji bagi Allah..." 
-            },
-            { 
-                judul: "4. Doa Pagi", 
-                arab: "اَللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوْتُ وَإِلَيْكَ النُّشُوْرُ", 
-                latin: "Allahumma bika ash-bahnaa wa bika amsaynaa...", 
-                arti: "Ya Allah, dengan rahmat-Mu kami memasuki waktu pagi, dan dengan rahmat-Mu kami memasuki waktu petang..." 
-            },
-            { 
-                judul: "5. Sayyidul Istighfar", 
-                arab: "اَللَّهُمَّ أَنْتَ رَبِّيْ لاَ إِلَـهَ إِلاَّ أَنْتَ، خَلَقْتَنِيْ وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوْذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ...", 
-                latin: "Allahumma anta robbii laa ilaha illa anta...", 
-                arti: "Ya Allah, Engkau adalah Rabbku, tidak ada ilah yang berhak disembah kecuali Engkau..." 
-            },
-            { 
-                judul: "6. Persaksian Pagi/Petang (4x)", 
-                arab: "اَللَّهُمَّ إِنِّيْ أَصْبَحْتُ أُشْهِدُكَ وَأُشْهِدُ حَمَلَةَ عَرْشِكَ، وَمَلاَئِكَتَكَ وَجَمِيْعَ خَلْقِكَ...", 
-                latin: "Allahumma inni ash-bahtu usy-hiduka wa usy-hidu hamalata ‘arsyika...", 
-                arti: "Ya Allah, sesungguhnya aku di waktu pagi ini mempersaksikan Engkau, malaikat pemikul ‘Arys-Mu..." 
-            },
-            { 
-                judul: "7. Mohon Afiyat", 
-                arab: "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَاْلآخِرَةِ...", 
-                latin: "Allahumma innii as-alukal ‘afwa wal ‘aafiyah fid dunyaa wal aakhiroh...", 
-                arti: "Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan di dunia dan akhirat..." 
-            },
-            { 
-                judul: "8. Perlindungan dari Syirik", 
-                arab: "اَللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَاْلأَرْضِ...", 
-                latin: "Allahumma ‘aalimal ghoybi wasy syahaadah...", 
-                arti: "Ya Allah, Yang Maha Mengetahui yang ghaib dan yang nyata, Pencipta langit dan bumi..." 
-            },
-            { 
-                judul: "9. Perlindungan Total (3x)", 
-                arab: "بِسْمِ اللَّهِ الَّذِى لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِى الأَرْضِ وَلاَ فِى السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ", 
-                latin: "Bismillahilladzi laa yadhurru ma’asmihi syai-un fil ardhi...", 
-                arti: "Dengan nama Allah yang bila disebut, segala sesuatu di bumi dan langit tidak akan berbahaya..." 
-            },
-            { 
-                judul: "10. Ridho Billah (3x)", 
-                arab: "رَضِيْتُ بِاللهِ رَبًّا، وَبِاْلإِسْلاَمِ دِيْنًا، وَبِمُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا", 
-                latin: "Rodhiitu billaahi robbaa wa bil-islaami diinaa...", 
-                arti: "Aku ridha Allah sebagai Rabb, Islam sebagai agama dan Muhammad SAW sebagai nabi." 
-            },
-            { 
-                judul: "11. Ya Hayyu Ya Qoyyum", 
-                arab: "يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ، وَأَصْلِحْ لِيْ شَأْنِيْ كُلَّهُ...", 
-                latin: "Yaa Hayyu Yaa Qoyyum, bi-rohmatika as-taghiits...", 
-                arti: "Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri..." 
-            },
-            { 
-                judul: "12. Fitrah Islam (Pagi)", 
-                arab: "أَصْبَحْنَا عَلَى فِطْرَةِ اْلإِسْلاَمِ وَعَلَى كَلِمَةِ اْلإِخْلاَصِ...", 
-                latin: "Ash-bahnaa ‘ala fithrotil islaam wa ‘alaa kalimatil ikhlaash...", 
-                arti: "Di waktu pagi kami memegang agama Islam, kalimat ikhlas, agama Nabi kami Muhammad SAW..." 
-            }
+        // --- HUMPUNAN DOA HARIAN (HISNUL MUSLIM) ---
+        const DAFTAR_DOA = [
+            { judul: "1. Zikir Ketika Bangun Tidur", arab: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ", latin: "Alhamdu lillahil-ladzi ahyana ba'da ma amatana wa ilaihin-nushur.", arti: "Segala puji bagi Allah yang menghidupkan kami kembali setelah mematikan kami dan kepada-Nya (kami) akan dibangkitkan." },
+            { judul: "2. Doa Memakai Pakaian", arab: "الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا (الثَّوْبَ) وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", latin: "Alhamdulillahilladzi kasaani hadza (ats-tsauba) wa razaqanihi min ghairi haulin minni wa laa quwwatin.", arti: "Segala puji bagi Allah yang telah memakaikan pakaian ini kepadaku dan mengaruniakannya kepadaku tanpa daya dan kekuatan dariku." },
+            { judul: "3. Mendoakan Orang Memakai Baju Baru", arab: "تُبْلِي وَيُخْلِفُ اللَّهُ تَعَالَى", latin: "Tubli wa yukhliful-lahu ta'ala.", arti: "Kenakanlah sampai lusuh, semoga Allah Ta'ala memberikan gantinya kepadamu." },
+            { judul: "4. Doa Menanggalkan Pakaian", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
+            { judul: "5. Doa Masuk WC", arab: "(بِسْمِ اللهِ) اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ", latin: "(Bismillah) Allahumma inni a'udzu bika minal khubutsi wal khaba-its.", arti: "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari godaan setan laki-laki dan perempuan." },
+            { judul: "6. Doa Keluar WC", arab: "غُفْرَانَكَ", latin: "Ghufranaka.", arti: "Aku memohon ampunan-Mu." },
+            { judul: "7. Zikir Sebelum Berwudu", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
+            { judul: "8. Zikir Setelah Berwudu", arab: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ", latin: "Asyhadu alla ilaha illallah wahdahu la syarika lahu wa asyhadu anna Muhammadan 'abduhu wa rasuluh.", arti: "Aku bersaksi bahwa tidak ada Tuhan selain Allah, dan Muhammad adalah hamba dan utusan-Nya." },
+            { judul: "9. Zikir Keluar Rumah", arab: "بِسْمِ اللهِ ، تَوَكَّلْتُ عَلَى اللهِ ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ", latin: "Bismillahi, tawakkaltu 'alallahi, wa laa haula wa laa quwwata illa billah.", arti: "Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan pertolongan Allah." },
+            { judul: "10. Zikir Masuk Rumah", arab: "بِسْمِ اللهِ وَلَجْنَا، وَبِسْمِ اللهِ خَرَجْنَا، وَعَلَى رَبِّنَا تَوَكَّلْنَا", latin: "Bismillahi walajnaa, wa bismillahi kharajnaa, wa 'alaa rabbinaa tawakkalnaa.", arti: "Dengan nama Allah kami masuk, dan dengan nama Allah kami keluar, dan kepada Tuhan kami, kami bertawakkal." },
+            { judul: "11. Doa Pergi ke Masjid", arab: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا ، وَفِي لِسَانِي نُورًا", latin: "Allahummaj'al fii qalbii nuura, wa fii lisaanii nuura...", arti: "Ya Allah, jadikanlah cahaya di hatiku dan cahaya di lisanku..." },
+            { judul: "12. Doa Masuk Masjid", arab: "بِسْمِ اللهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللهِ، اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ", latin: "Allahummaftah lii abwaaba rahmatik.", arti: "Ya Allah, bukakanlah untukku pintu-pintu rahmat-Mu." },
+            { judul: "13. Doa Setelah Azan", arab: "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ ، وَالصَّلَاةِ الْقَائِمَةِ ، آتِ مُحَمَّدًا الْوَسِيلَةَ وَالْفَضِيلَةَ", latin: "Allahumma rabba hadzihid da'watit tammah, wash-shalaatil qa-imah...", arti: "Ya Allah, Tuhan pemilik panggilan yang sempurna ini dan shalat yang akan didirikan..." },
+            { judul: "14. Doa Istiftah", arab: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ ، وَتَبَارَكَ اسْمُكَ ، وَتَعَالَى جَدُّكَ ، وَلَا إِلَهَ غَيْرُكَ", latin: "Subhanakallahumma wa bihamdika...", arti: "Maha Suci Engkau Ya Allah, aku memuji-Mu..." },
+            { judul: "15. Doa Ruku'", arab: "سُبْحَانَ رَبِّيَ الْعَظِيمِ", latin: "Subhaana rabbiyal 'azhiim.", arti: "Maha Suci Tuhanku Yang Maha Agung." },
+            { judul: "16. Doa Bangkit dari Ruku'", arab: "سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ ... رَبَّنَا وَلَكَ الْحَمْدُ", latin: "Sami'allahu liman hamidah... Rabbana wa lakal hamd.", arti: "Allah mendengar orang yang memuji-Nya... Ya Tuhan kami, bagi-Mu segala puji." },
+            { judul: "17. Doa Sujud", arab: "سُبْحَانَ رَبِّيَ الْأَعْلَى", latin: "Subhaana rabbiyal a'la.", arti: "Maha Suci Tuhanku Yang Maha Tinggi." },
+            { judul: "18. Doa Duduk Antara Dua Sujud", arab: "رَبِّ اغْفِرْ لِي ، رَبِّ اغْفِرْ لِي", latin: "Rabbighfirlii, Rabbighfirlii.", arti: "Ya Tuhanku ampunilah aku." },
+            { judul: "19. Doa Sujud Tilawah", arab: "سَجَدَ وَجْهِيَ لِلَّذِي خَلَقَهُ، وَشَقَّ سَمْعَهُ وَبَصَرَهُ", latin: "Sajada wajhiya lilladzi khalaqahu, wa syaqqa sam'ahu wa basharahu.", arti: "Wajahku bersujud kepada Dzat yang menciptakannya, yang membuka pendengaran dan penglihatannya." },
+            { judul: "20. Bacaan Tasyahud", arab: "التَّحِيَّاتُ لِلَّهِ، وَالصَّلَوَاتُ، وَالطَّيِّبَاتُ", latin: "Attahiyyatu lillah wash-shalawatu wath-thayyibat...", arti: "Segala penghormatan, shalawat, dan kebaikan hanya milik Allah..." },
+            { judul: "21. Bacaan Shalawat Nabi", arab: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ", latin: "Allahumma shalli 'ala Muhammad wa 'ala aali Muhammad...", arti: "Ya Allah, berilah rahmat kepada Muhammad dan keluarga Muhammad..." },
+            { judul: "22. Doa Sebelum Salam", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، وَمِنْ عَذَابِ جَهَنَّمَ", latin: "Allahumma inni a'udzu bika min 'adzabil qabri, wa min 'adzabi jahannam...", arti: "Ya Allah, sesungguhnya aku berlindung kepada-Mu dari siksa kubur dan neraka Jahannam..." },
+            { judul: "23. Doa Qunut Witir", arab: "اللَّهُمَّ اهْدِنِي فِيمَنْ هَدَيْتَ ، وَعَافِنِي فِيمَنْ عَافَيْتَ", latin: "Allahummahdinii fiiman hadait, wa 'aafinii fiiman 'aafait...", arti: "Ya Allah, berilah aku petunjuk..." },
+            { judul: "24. Zikir Setelah Witir", arab: "سُبْحَانَ الْمَلِكِ الْقُدُّوسِ", latin: "Subhanal malikil quddus.", arti: "Maha Suci Allah Raja Yang Maha Suci." },
+            { judul: "25. Doa Ditimpa Kesusahan", arab: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ", latin: "Laa ilaha illallahul 'azhimul halim...", arti: "Tiada Tuhan selain Allah Yang Maha Agung lagi Maha Santun..." },
+            { judul: "26. Doa Menghadapi Kesulitan", arab: "اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا", latin: "Allahumma laa sahla illa maa ja'altahu sahlaa...", arti: "Ya Allah, tidak ada kemudahan kecuali yang Engkau jadikan mudah..." },
+            { judul: "27. Doa Menjenguk Orang Sakit", arab: "لَا بَأْسَ طَهُورٌ إِنْ شَاءَ اللَّهُ", latin: "Laa ba'sa thahuurun insyaa Allah.", arti: "Tidak mengapa, semoga sakitmu ini membersihkan dosamu, insya Allah." },
+            { judul: "28. Doa Tertimpa Musibah", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي", latin: "Inna lillahi wa inna ilaihi raji'un...", arti: "Sesungguhnya kami milik Allah dan kepada-Nya kami kembali..." },
+            { judul: "29. Doa Mendengar Halilintar", arab: "سُبْحَانَ الَّذِي يُسَبِّحُ الرَّعْدُ بِحَمْدِهِ", latin: "Subhanalladzi yusabbihur ra'du bihamdihi...", arti: "Maha Suci Allah yang petir bertasbih dengan memuji-Nya..." },
+            { judul: "30. Doa Melihat Hujan", arab: "اللَّهُمَّ صَيِّبًا نَافِعًا", latin: "Allahumma shayyiban nafi'an.", arti: "Ya Allah, turunkanlah hujan yang bermanfaat." },
+            { judul: "31. Zikir Setelah Hujan", arab: "مُطِرْنَا بِفَضْلِ اللَّهِ وَرَحْمَتِهِ", latin: "Muthirnaa bifadhlillahi wa rahmatih.", arti: "Kita diberi hujan karena karunia dan rahmat Allah." },
+            { judul: "32. Doa Hujan Berhenti", arab: "اللَّهُمَّ حَوَالَيْنَا وَلَا عَلَيْنَا", latin: "Allahumma hawalaina wa laa 'alaina.", arti: "Ya Allah, turunkanlah hujan di sekitar kami, bukan di atas kami." },
+            { judul: "33. Doa Melihat Bulan Sabit", arab: "اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْأَمْنِ وَالْإِيمَانِ", latin: "Allahumma ahillahu 'alaina bil amni wal iimaan...", arti: "Ya Allah, jadikanlah hilal ini bagi kami membawa keamanan dan keimanan..." },
+            { judul: "34. Doa Berbuka Puasa", arab: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ", latin: "Dzahabadh zhama-u wabtallatil 'uruuqu wa tsabatal ajru insyaa Allah.", arti: "Telah hilang dahaga, telah basah urat-urat, dan telah tetap pahala, insya Allah." },
+            { judul: "35. Berbuka di Tempat Orang", arab: "أَفْطَرَ عِنْدَكُمُ الصَّائِمُونَ", latin: "Afthara 'indakumush shaa-imuuna...", arti: "Semoga orang-orang yang berpuasa berbuka di tempat kalian..." },
+            { judul: "36. Doa Sebelum Makan", arab: "بِسْمِ اللهِ", latin: "Bismillah.", arti: "Dengan nama Allah." },
+            { judul: "37. Jika Dicela Saat Puasa", arab: "إِنِّي صَائِمٌ", latin: "Inni shaa-imun.", arti: "Sesungguhnya aku sedang berpuasa." },
+            { judul: "38. Doa Ketika Marah", arab: "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ", latin: "A'udzu billahi minasy syaithanir rajiim.", arti: "Aku berlindung kepada Allah dari godaan setan." },
+            { judul: "39. Melihat Orang Kena Musibah", arab: "الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي مِمَّا ابْتَلَاكَ بِهِ", latin: "Alhamdulillahilladzi 'aafaanii mimmab talaaka bihi...", arti: "Segala puji bagi Allah yang telah menyelamatkan aku dari musibah yang menimpamu..." },
+            { judul: "40. Doa Kebaikan Orang Lain", arab: "جَزَاكَ اللَّهُ خَيْرًا", latin: "Jazakallahu khairan.", arti: "Semoga Allah membalasmu dengan kebaikan." },
+            { judul: "41. Perlindungan Dajjal", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ ... وَمِنْ شَرِّ فِتْنَةِ الْمَسِيحِ الدَّجَّالِ", latin: "Allahumma inni a'udzu bika min... fitnatil masiihid dajjal.", arti: "Ya Allah, aku berlindung dari fitnah Dajjal." },
+            { judul: "42. Doa Takut Syirik", arab: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ أَنْ أُشْرِكَ بِكَ وَأَنَا أَعْلَمُ", latin: "Allahumma inni a'udzu bika an usyrika bika wa anaa a'lam...", arti: "Ya Allah, aku berlindung kepada-Mu dari menyekutukan-Mu padahal aku mengetahui..." }
         ];
 
         const getGregorianDate = (startDate, dayIndex) => {
@@ -195,13 +165,13 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 500; // Kompresi Lebar (Lebih Ringan)
+                        const MAX_WIDTH = 500; 
                         const scaleSize = MAX_WIDTH / img.width;
                         canvas.width = (scaleSize < 1) ? MAX_WIDTH : img.width;
                         canvas.height = (scaleSize < 1) ? (img.height * scaleSize) : img.height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // Kompresi Kualitas 50%
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); 
                     }
                 }
             });
@@ -222,7 +192,7 @@
             const [role, setRole] = useState('home'); 
             const [scriptUrl, setScriptUrl] = useState('');
             const [schoolName, setSchoolName] = useState('Sekolah Dasar Islam Terpadu');
-            const [teacherPin, setTeacherPin] = useState('1234');
+            const [teacherPin, setTeacherPin] = useState('QA-12345'); // PIN BARU
             const [magicLinkStatus, setMagicLinkStatus] = useState(null); 
 
             useEffect(() => {
@@ -365,7 +335,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Finishing (1x Kirim)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 5.3 (Doa 42+)</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -710,7 +680,7 @@
                             </button></div>}</div>)}
                         
                         {view === 'doa' && (<div className="space-y-3 pb-10">
-                            {DAFTAR_DZIKIR.map((doa, i) => (
+                            {DAFTAR_DOA.map((doa, i) => (
                                 <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                                     <h3 className="font-bold text-sm text-slate-700 mb-2">{doa.judul}</h3>
                                     <p className="text-right font-serif text-lg leading-loose mb-2 text-slate-800">{doa.arab}</p>
@@ -737,6 +707,7 @@
                                             {item.koreksiGuru && <div className="text-xs text-slate-600 italic mt-1">"{item.koreksiGuru}"</div>}
                                         </div>
                                     ) : (
+                                        // HANYA TAMPILKAN "MENUNGGU..." JIKA ITU ADALAH SETORAN MEDIA (HAFALAN/FOTO)
                                         isMedia ? <div className="mt-1 text-[10px] text-slate-400 italic">Menunggu penilaian guru...</div> : null
                                     )}
                                 </div>
