@@ -24,8 +24,8 @@
         .font-serif { font-family: 'Amiri', serif; }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .animate-in { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
         .night-sky {
             background: linear-gradient(to bottom, #0f172a, #312e81);
@@ -40,9 +40,6 @@
             animation: twinkle 2s infinite ease-in-out;
         }
         @keyframes twinkle { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
-        
-        /* Disabled State Styles */
-        .disabled-card { opacity: 0.7; pointer-events: none; filter: grayscale(0.2); }
     </style>
 </head>
 <body>
@@ -104,10 +101,12 @@
             Link: (p) => <Icon name="Link" {...p} />,
             Image: (p) => <Icon name="Image" {...p} />,
             List: (p) => <Icon name="List" {...p} />,
-            AlertTriangle: (p) => <Icon name="AlertTriangle" {...p} />
+            AlertTriangle: (p) => <Icon name="AlertTriangle" {...p} />,
+            ZoomIn: (p) => <Icon name="ZoomIn" {...p} />
         };
 
-        const DAFTAR_DZIKIR = [
+        // --- DZIKIR LENGKAP (42 ITEM) ---
+        const DAFTAR_DOA = [
             { judul: "1. Zikir Ketika Bangun Tidur", arab: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ", latin: "Alhamdu lillahil-ladzi ahyana ba'da ma amatana wa ilaihin-nushur.", arti: "Segala puji bagi Allah yang menghidupkan kami kembali setelah mematikan kami dan kepada-Nya (kami) akan dibangkitkan." },
             { judul: "2. Doa Memakai Pakaian", arab: "الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا (الثَّوْبَ) وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ", latin: "Alhamdulillahilladzi kasaani hadza (ats-tsauba) wa razaqanihi min ghairi haulin minni wa laa quwwatin.", arti: "Segala puji bagi Allah yang telah memakaikan pakaian ini kepadaku dan mengaruniakannya kepadaku tanpa daya dan kekuatan dariku." },
             { judul: "3. Mendoakan Orang Memakai Baju Baru", arab: "تُبْلِي وَيُخْلِفُ اللَّهُ تَعَالَى", latin: "Tubli wa yukhliful-lahu ta'ala.", arti: "Kenakanlah sampai lusuh, semoga Allah Ta'ala memberikan gantinya kepadamu." },
@@ -168,13 +167,14 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const MAX_WIDTH = 500; 
+                        // INCREASED RESOLUTION FOR BETTER READABILITY (Handwriting)
+                        const MAX_WIDTH = 600; 
                         const scaleSize = MAX_WIDTH / img.width;
                         canvas.width = (scaleSize < 1) ? MAX_WIDTH : img.width;
                         canvas.height = (scaleSize < 1) ? (img.height * scaleSize) : img.height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5)); 
+                        resolve(canvas.toDataURL('image/jpeg', 0.6)); // Quality 0.6
                     }
                 }
             });
@@ -338,7 +338,7 @@
                         <div className="space-y-3">
                             <button onClick={() => setRole('student')} className="w-full bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-transform active:scale-95 shadow-lg border-b-4 border-yellow-600"><Icons.User size={24} /> Masuk sebagai Murid</button>
                         </div>
-                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 7.0 (Locked Submission)</p></div>
+                        <div className="mt-8 pt-4 border-t border-white/10"><p className="text-[10px] text-emerald-200/60">Versi Final 7.1 (Lightbox Image)</p></div>
                     </div>
 
                     {/* PIN PROMPT */}
@@ -397,7 +397,8 @@
             const [koreksiInput, setKoreksiInput] = useState('');
             const [saving, setSaving] = useState(false);
             const [errorMsg, setErrorMsg] = useState('');
-            const [activeTab, setActiveTab] = useState('jurnal'); 
+            const [activeTab, setActiveTab] = useState('jurnal');
+            const [previewImage, setPreviewImage] = useState(null); // LIGHTBOX STATE
 
             useEffect(() => { fetchData(); }, []);
 
@@ -432,7 +433,7 @@
 
             const openModal = (student) => { setSelectedStudent(student); setNilaiInput(student.nilaiGuru || ''); setKoreksiInput(student.koreksiGuru || ''); };
 
-            // MAGIC LINK V3: FULL AUTO (URL + School Name)
+            // MAGIC LINK V3
             const copyStudentLink = () => {
                 if (!scriptUrl) { alert("Link Script kosong!"); return; }
                 const isLocal = window.location.protocol === 'file:';
@@ -478,9 +479,16 @@
                                 <div className="flex justify-between items-start mb-2"><div><h3 className="font-bold text-slate-800 flex items-center gap-2">{item.nama} <span className="text-[10px] bg-slate-100 px-1 rounded text-slate-500">#{item.rowIndex}</span></h3><p className="text-xs text-slate-500">Hari ke-{item.hari} • {item.kelas}</p></div>{activeTab === 'jurnal' && <span className="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2 py-1 rounded-full border border-yellow-200">{item.poin} Poin (Auto)</span>}</div>
                                 {activeTab === 'jurnal' && <div className="bg-slate-50 p-2 rounded-lg text-xs text-slate-600 mb-3 font-mono border border-slate-100">{item.rincian}</div>}
                                 {activeTab === 'hafalan' && <div className="mb-3"><div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex items-center justify-between mb-2"><div className="flex items-center gap-2"><Icons.Play size={14} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Putar Audio</span></div><audio controls src={item.audio} className="h-8 w-32" /></div><div className="text-[10px] text-slate-500 italic truncate">{item.rincian}</div></div>}
-                                {activeTab === 'galeri' && <div className="mb-3"><img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2" /><div className="text-[10px] text-slate-500 italic">{item.rincian}</div></div>}
                                 
-                                {/* TOMBOL NILAI (HIDDEN FOR JURNAL) */}
+                                {/* LIGHTBOX IMAGE TRIGGER */}
+                                {activeTab === 'galeri' && <div className="mb-3">
+                                    <div className="relative group cursor-pointer" onClick={() => setPreviewImage(item.foto)}>
+                                        <img src={item.foto} alt="Bukti" className="w-full h-48 rounded-lg border border-slate-200 object-cover mb-2 transition hover:opacity-90" />
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 rounded-lg transition"><Icons.ZoomIn className="text-white drop-shadow-md" size={32}/></div>
+                                    </div>
+                                    <div className="text-[10px] text-slate-500 italic">{item.rincian}</div>
+                                </div>}
+                                
                                 <div className="border-t pt-2 mt-2 flex justify-between items-center">
                                     <div className="text-xs">
                                         {item.nilaiGuru ? <div className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded border border-green-100">Nilai Guru: {item.nilaiGuru}</div> : (activeTab === 'jurnal' ? '' : <span className="text-red-400 italic">Belum dinilai</span>)}
@@ -496,6 +504,15 @@
                             ))}
                         </div>
                     </div>
+                    
+                    {/* LIGHTBOX MODAL */}
+                    {previewImage && (
+                        <div className="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center p-4 animate-in fade-in" onClick={() => setPreviewImage(null)}>
+                            <button className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 p-2 rounded-full"><Icons.XIcon size={24}/></button>
+                            <img src={previewImage} className="max-w-full max-h-[90vh] rounded-lg shadow-2xl object-contain" onClick={(e) => e.stopPropagation()}/>
+                        </div>
+                    )}
+
                     {selectedStudent && (<div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"><div className="bg-white w-[90%] max-w-sm rounded-2xl p-6 shadow-2xl relative"><button onClick={() => setSelectedStudent(null)} className="absolute top-4 right-4 bg-slate-100 p-1 rounded-full"><Icons.XIcon size={20} className="text-slate-500"/></button><h3 className="font-bold text-lg mb-1 text-slate-800">Beri Nilai</h3><p className="text-xs text-slate-500 mb-4">{selectedStudent.nama} • {selectedStudent.rowIndex}</p><div className="space-y-4 mb-6"><div><label className="text-xs font-bold text-slate-500 block mb-1">Nilai Guru</label><input type="text" value={nilaiInput} onChange={(e) => setNilaiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl" placeholder="Contoh: 100" /></div><div><label className="text-xs font-bold text-slate-500 block mb-1">Koreksi</label><textarea rows="3" value={koreksiInput} onChange={(e) => setKoreksiInput(e.target.value)} className="w-full p-3 bg-slate-50 border rounded-xl text-sm" /></div></div><button onClick={handleSimpanNilai} disabled={saving} className="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold flex justify-center items-center gap-2">{saving ? <Icons.Loader2 className="animate-spin"/> : <Icons.CheckSquare size={18}/>} Simpan</button></div></div>)}
                     <button onClick={() => setRole('home')} className="fixed bottom-4 right-4 bg-red-500 text-white p-3 rounded-full shadow-lg border border-red-600 z-50"><Icons.LogOut size={20}/></button>
                 </div>
@@ -527,10 +544,9 @@
             const [raportData, setRaportData] = useState([]);
             const [loadingRaport, setLoadingRaport] = useState(false);
             const [totalGuruScore, setTotalGuruScore] = useState(0); 
-            
-            // LOCAL STATE UTK KUNCI 1x KIRIM (Immediate Lock)
-            const [localSubmissions, setLocalSubmissions] = useState({ journal: false, audio: false, photo: false });
-            
+            const [dailySubmissions, setDailySubmissions] = useState({ journal: false, audio: false, photo: false });
+            const [previewImage, setPreviewImage] = useState(null); // LIGHTBOX
+
             const currentDateGregorian = getGregorianDate(studentProfile.startDateRamadan || '2026-02-18', activeDay);
             const triggerConfetti = () => { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); };
             
@@ -547,12 +563,8 @@
             useEffect(() => { if (Object.keys(userData).length > 0) localStorage.setItem('ramadanJournalData', JSON.stringify(userData)); }, [userData]);
             useEffect(() => { localStorage.setItem('ramadanProfile', JSON.stringify(studentProfile)); }, [studentProfile]);
 
-            // CHECK SUBMISSIONS FOR CURRENT DAY (SERVER + LOCAL MERGE - PERSISTENT)
             const isJournalSubmitted = useMemo(() => {
-                // Check Persistent Local Flag (userData[day].submitted_journal)
                 if (userData[activeDay]?.submitted_journal) return true;
-                
-                // Fallback to Server Data Check
                 if (!raportData) return false;
                 const currentDayData = raportData.filter(d => parseInt(d.hari) === activeDay);
                 return currentDayData.some(d => (!d.audio || d.audio.length < 50) && (!d.foto || d.foto.length < 50));
@@ -573,7 +585,7 @@
             }, [raportData, activeDay, userData]);
 
             const updateField = (day, field, value) => { 
-                if (userData[day]?.submitted_journal) return; // Prevent editing if submitted
+                if (userData[day]?.submitted_journal) return; 
                 setUserData(prev => {
                     const dayData = prev[day] || {};
                     return { ...prev, [day]: { ...dayData, [field]: value } };
@@ -596,7 +608,6 @@
 
             const toggleValidation = (day) => { setUserData(prev => ({ ...prev, [day]: { ...prev[day], validated: !prev[day].validated } })); if (!userData[day].validated) triggerConfetti(); };
             
-            // NO LIMIT on Image Size, just Compress
             const handleImageUpload = async (e) => { 
                 const file = e.target.files[0]; 
                 if(file) { 
@@ -604,9 +615,7 @@
                     try { 
                         const b64 = await compressImage(file); 
                         setBase64Image(b64); 
-                    } catch(e){ 
-                        alert("Gagal memproses gambar."); 
-                    } 
+                    } catch(e){ alert("Gagal memproses gambar."); } 
                 } 
             };
             const removeImage = () => { setSelectedImage(null); setBase64Image(""); };
@@ -639,7 +648,6 @@
                 if(dayData.halKurangBaik) rincian.push(`⚠️ Evaluasi: ${dayData.halKurangBaik}`);
                 payload = { action: 'lapor', nama: studentProfile.name, kelas: studentProfile.class, hari: activeDay, poin: calculateDailyScore(dayData, activeDay), puasa: dayData.puasaPenuh, tarawih: dayData.tarawih, kebaikan: rincian.join(", "), foto: "-", audio: "-" }; } await fetch(studentProfile.scriptUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }); triggerConfetti(); alert("Terkirim! Guru akan segera menerima datamu."); 
                 
-                // SAVE PERSISTENT LOCK TO LOCAL STORAGE
                 setUserData(prev => {
                     const dayData = prev[activeDay] || {};
                     let updates = {};
@@ -741,7 +749,12 @@
                                     <div className="flex justify-between text-xs text-slate-500 mb-2"><span>Hari ke-{item.hari}</span><span>{new Date(item.waktu).toLocaleDateString()}</span></div>
                                     
                                     {item.audio && item.audio.length > 50 && <div className="mb-2 bg-blue-50 p-2 rounded border border-blue-100 flex items-center gap-2"><Icons.Play size={12} className="text-blue-600"/><span className="text-xs font-bold text-blue-700">Setoran Audio</span></div>}
-                                    {item.foto && item.foto.length > 50 && <div className="mb-2"><img src={item.foto} className="h-20 w-full object-cover rounded border border-slate-200" alt="Bukti"/></div>}
+                                    {item.foto && item.foto.length > 50 && (
+                                        <div className="mb-2 relative group cursor-pointer" onClick={() => setPreviewImage(item.foto)}>
+                                            <img src={item.foto} className="h-20 w-full object-cover rounded border border-slate-200" alt="Bukti"/>
+                                            <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"><Icons.ZoomIn className="text-white drop-shadow-md"/></div>
+                                        </div>
+                                    )}
                                     
                                     <div className="font-bold text-slate-800 text-sm mb-1">{item.rincian || 'Laporan Harian'}</div>
                                     
@@ -763,6 +776,15 @@
                             {isPhotoSubmitted ? 'Sudah Dikirim Hari Ini' : 'Kirim Foto'}
                         </button></div>)}
                     </div>
+                    
+                    {/* LIGHTBOX MODAL (STUDENT) */}
+                    {previewImage && (
+                        <div className="fixed inset-0 bg-black/95 z-[70] flex items-center justify-center p-4 animate-in fade-in" onClick={() => setPreviewImage(null)}>
+                            <button className="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 p-2 rounded-full"><Icons.XIcon size={24}/></button>
+                            <img src={previewImage} className="max-w-full max-h-[90vh] rounded-lg shadow-2xl object-contain" onClick={(e) => e.stopPropagation()}/>
+                        </div>
+                    )}
+
                     {showConfetti && <div className="fixed inset-0 flex items-center justify-center z-50 text-6xl animate-bounce">🎉</div>}
                     <button onClick={() => setRole('home')} className="fixed bottom-4 right-4 bg-red-500 text-white p-3 rounded-full shadow-lg border border-red-600 z-50"><Icons.LogOut size={20}/></button>
                 </div>
